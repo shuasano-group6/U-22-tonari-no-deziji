@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>となりのデジタル</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="homeScreen" class="screen home-screen">
+            <div class="owl"><img src="images/start-owl.png" alt="owl"></div>
+            <div class="title">
+                <h2 class="heading">となりのデジジ</h2>
+            </div>
+            <div class="buttons">
+                <button class="button-1" onclick="startScenario()">やってみる</button>
+                <button class="button-2">お助け</button>
+                <button class="button-3">設定</button>
+            </div>
+        </div>
+
+        <div id="scenarioScreen" class="screen hidden">
+            <div class="scenarioTitle">
+                <h2>シナリオ選択</h2>
+            </div>
+            <div class="scenarios">
+                <button class="scenarioBtn sBtn1" onclick="location.href='call.html'">電話</button>
+                <button class="scenarioBtn sBtn2" onclick="loadScenario('LINE')">LINE</button>
+                <button class="scenarioBtn sBtn3" onclick="loadScenario('写真')">写真</button>
+            </div>
+            <div class="btmBtn">
+                <h1></h1>
+                <img src="images/startBack.png" alt="return" class="returnIcon" onclick="goHome()">
+            </div>
+        </div>
+
+        <div id="playScreen" class="screen hidden">
+            <div class="owl">🦉</div>
+            <h2 id="scenarioTitle"></h2>
+            <p id="scenarioText"></p>
+            <button onclick="success()">できた！</button>
+        </div>
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html> 

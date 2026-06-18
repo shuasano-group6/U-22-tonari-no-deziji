@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>となりのデジタル</title>
+<link rel="stylesheet" href="call.css">
+</head>
+<body>
+    <div id="callScreen" class="callWrapper">
+        <div class="topArea">
+            <button class="topBtn" onclick="location.href='index.html'">＜</button>
+            <h1>連絡先</h1>
+            <button class="topBtn">＋</button>
+        </div>
+        <div class="researchArea">
+            <form action="#" class="search-form-6">
+                <label>
+                    <input type="text" aria-label="キーワードを入力">
+                </label>
+            </form>
+        </div>
+        <div class="userArea">
+            <div class="user">
+                <img src="images/call-icon.png" alt="ユーザー画像">
+                <h1>あなた</h1>
+            </div>
+            <p></p>
+            <div class="user" onclick="incorrect('高市早苗でした。')">
+                <img src="images/call-icon.png" alt="ユーザー画像">
+                <h1>高市　早苗</h1>
+            </div>
+            <p></p>
+            <div class="user" onclick="incorrect('ドナルド・トランプでした。')">
+                <img src="images/call-icon.png" alt="ユーザー画像">
+                <h1>ドナルド・トランプ</h1>
+            </div>
+            <p></p>
+            <div class="user" onclick="correct()">
+                <img src="images/call-icon.png" alt="ユーザー画像">
+                <h1>孫</h1>
+            </div>
+            <p></p>
+            <div class="user" onclick="incorrect('堂前和希でした。')">
+                <img src="images/call-icon.png" alt="ユーザー画像">
+                <h1>堂前　和希</h1>
+            </div>
+        </div>
+    </div>
+
+    <div id="correctArea" class="correctArea hidden">
+        <div class="correctMessage">
+            <h1>正解です！！</h1>
+        </div>
+        <div class="owlMessage">
+            <img src="images/call-owl.png" alt="owl">
+            <div class="balloon">
+                今回は「孫」に
+                電話をかける練習です。
+            </div>
+        </div>
+        <div class="checkMessage">
+            <img src="images/ffdcab.png">
+            <div class="Inh1">
+                <h1>選んだ連絡先は</h1>
+                <h1>「孫」でした！</h1>
+            </div>
+        </div>
+        <div class="correctNextMessage">
+            <img src="images/f6b52c.png">
+            <div class="Inh1">
+                <h1>さぁ！！次の段階です！！</h1>
+                <h1>「孫」に電話をかけてみよう！</h1>
+            </div>
+        </div>
+        <div class="retryBtn">
+            <button class="incorrectRetry" onclick="grandchildCall()">次へ挑戦　＞</button>
+        </div>
+    </div>
+    <div id="incorrectArea" class="incorrectArea hidden">
+        <div class="incorrectMessage">
+            <h1>おしいです！！</h1>
+        </div>
+        <div class="owlMessage">
+            <img src="images/call-owl.png" alt="owl">
+            <div class="balloon">
+                今回は「孫」に
+                電話をかける練習です。
+            </div>
+        </div>
+        <div class="checkMessage">
+            <img src="images/ffdcab.png">
+            <div class="Inh1">
+                <h1>選んだ連絡先は</h1>
+                <h1 id="incorrectName"></h1>
+            </div>
+        </div>
+        <div class="retryMessage">
+            <img src="images/f6b52c.png">
+            <div class="Inh1">
+                <h1>連絡先一覧から「孫」を探して</h1>
+                <h1>もう一度押してみましょう。</h1>
+            </div>
+        </div>
+        <div class="retryBtn">
+            <button class="incorrectRetry" onclick="location.href='call.html'">＜　もう一度探してみる</button>
+        </div>
+    </div>
+
+    <div id="grandchildCall" class="grandchildCall hidden">
+        <div class="topArea">
+            <button class="topBtn" onclick="location.href='call.html'">＜</button>
+            <button class="topBtn">編集</button>
+        </div>
+        <div class="childInfo">
+            <img src="images/call-icon.png">
+            <h1>孫</h1>
+        </div>
+        <div class="iconBtnArea">
+            <img src="images/message-icon.png" alt="メッセージ">
+            <img src="images/phone-icon.png" alt="電話" onclick="callFinish()">
+            <img src="images/videoCall-icon.png" alt="ビデオ通話">
+        </div>
+    </div>
+
+    <div id="callFinish" class="callFinish hidden">
+        <img src="images/clear.png" alt="clear-owl" class="clearOwl">
+        <div class="checkMessage">
+            <img src="images/ffdcab.png">
+            <div class="Inh1">
+                <h1>おめでとうございます！</h1>
+                <h1>安全にお孫さんに電話を</h1>
+                <h1>かける事ができました！</h1>
+            </div>
+        </div>
+        <div class="retryBtn">
+            <button class="incorrectRetry" onclick="location.href='index.html'">ホームに戻る</button>
+        </div>
+    </div>
+
+<script src="call.js"></script>
+</body>
+</html> 

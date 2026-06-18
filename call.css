@@ -1,0 +1,354 @@
+body{
+    font-family:sans-serif;
+    background:#ffffff;
+    margin:0;
+    overflow: hidden;
+}
+
+.callWrapper{
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
+    position:relative;
+}
+
+.topArea{
+    position: absolute;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.topBtn{
+    width: auto;
+    min-width: 100px;
+    height: 100px;
+    border-radius: 50%; /* 丸 */
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.topArea h1{
+    font-size: 70px;
+    margin: 0;
+}
+
+.researchArea{
+    position: absolute;
+    top: 12vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;
+}
+
+.search-form-6 {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border: 2px solid #000000;
+    border-radius: 24px;
+}
+
+.search-form-6:hover {
+    box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
+}
+
+.search-form-6::before {
+    width: 100px;
+    height: 50px;
+    margin: 10px;
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%20%3Cpath%20d%3D%22M23.7%2020.8%2019%2016.1c-.2-.2-.5-.3-.8-.3h-.8c1.3-1.7%202-3.7%202-6C19.5%204.4%2015.1%200%209.7%200S0%204.4%200%209.7s4.4%209.7%209.7%209.7c2.3%200%204.3-.8%206-2v.8c0%20.3.1.6.3.8l4.7%204.7c.4.4%201.2.4%201.6%200l1.3-1.3c.5-.5.5-1.2.1-1.6zm-14-5.1c-3.3%200-6-2.7-6-6s2.7-6%206-6%206%202.7%206%206-2.6%206-6%206z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%20%3C%2Fsvg%3E');
+    background-position: center;
+    background-repeat: no-repeat;
+    content: '';
+}
+
+.search-form-6 input {
+    width: 100%;
+    padding: 5px 25px 5px 0;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.userArea{
+    position: absolute;
+    top: 18vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;
+}
+
+.userArea p {
+    border-bottom: 2px solid #a5a4a4;
+}
+
+.user{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.user img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-right: 30px;
+}
+
+.user h1{
+    font-size: 70px;
+    margin: 0;
+}
+
+.correctArea{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.correctMessage{
+    position: absolute;
+    top: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    font-size: 60px;
+}
+
+.correctNextMessage{
+    position: absolute;
+    top: 63vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.correctNextMessage img{
+    width: 90vw;
+    display: block;
+}
+
+.incorrectArea{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.incorrectMessage{
+    position: absolute;
+    top: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    font-size: 60px;
+}
+
+.owlMessage{
+    position: absolute;
+    top: 20vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+}
+
+.owlMessage img{
+    width: 35vw;
+}
+
+.balloon {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 45vw;
+    height: 8vh;
+    margin-left: 20px;
+    padding: .8em 1.2em;
+    border: 10px solid #ff745c;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333333;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.balloon::before,
+.balloon::after {
+    position: absolute;
+    left: -50px;
+    width: 50px;
+    height: 40px;
+    clip-path: polygon(0 50%, 100% 0, 100% 100%);
+    content: '';
+}
+
+.balloon::before {
+    background-color: #ff745c;
+}
+
+.balloon::after {
+    left: -11px;
+    background-color: #fff;
+}
+
+.checkMessage{
+    position: absolute;
+    top: 38vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.checkMessage img{
+    width: 90vw;
+    display: block;
+}
+
+.Inh1{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+
+    color: #000000;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.retryMessage{
+    position: absolute;
+    top: 63vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.retryMessage img{
+    width: 90vw;
+    display: block;
+}
+
+.retryBtn{
+    position: absolute;
+    top: 88vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+}
+
+.incorrectRetry {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    padding: .9em 2em;
+    border: 2px solid #fff;
+    border-radius: 25px;
+    box-shadow: 0 0 0 3px #b48455;
+    background-color: #b48455;
+    color: #fff;
+    font-weight: 600;
+    font-size: 3em;
+}
+
+.grandchildCall{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.childInfo{
+    position: absolute;
+    top: 25vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.childInfo img{
+    width: 100%;
+}
+
+.childInfo h1{
+    font-size: 60px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.iconBtnArea{
+    position: absolute;
+    top: 50vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    display: flex;
+    justify-content: space-around;
+}
+
+.iconBtnArea img{
+    width: 20vw;
+    cursor: pointer;
+}
+
+.callFinish{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.clearOwl{
+    position: absolute;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75vw;
+}
+
+.hidden{
+    display:none;
+}
+
+@media screen and (max-width: 768px){
+
+    .callWrapper{
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+}
