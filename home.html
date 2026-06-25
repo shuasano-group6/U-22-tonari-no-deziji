@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="transparent" />
+  <title>ホーム</title>
+  <link rel="stylesheet" href="home.css" />
+</head>
+<body>
+
+  <!-- ステータスバー -->
+  <div class="status-bar">
+    <span class="status-time" id="statusTime">9:41</span>
+    <div class="status-icons">
+      <span class="status-icon">▲</span>
+      <span class="status-icon">WiFi</span>
+      <span class="status-icon">🔋</span>
+    </div>
+  </div>
+
+  <!-- メインスクロール領域 -->
+  <div class="home-scroll">
+
+    <!-- ウィジェット行 -->
+    <div class="widget-row">
+      <!-- 天気ウィジェット -->
+      <div class="widget widget-weather" id="widgetWeather">
+        <div class="weather-temp">22°C</div>
+        <div class="weather-icon">⛅</div>
+        <div class="widget-label">天気</div>
+      </div>
+
+      <!-- カレンダーウィジェット -->
+      <div class="widget widget-calendar" id="widgetCalendar">
+        <div class="cal-day-name" id="calDayName">火曜日</div>
+        <div class="cal-date" id="calDate">28</div>
+        <div class="widget-label">カレンダー</div>
+      </div>
+    </div>
+
+    <!-- アプリグリッド 1行目 -->
+    <div class="app-grid">
+      <div class="app-icon" data-name="FaceTime">
+        <div class="app-icon-img facetime">
+          <span class="app-glyph">📹</span>
+        </div>
+        <div class="app-label">FaceTime</div>
+      </div>
+      <div class="app-icon" data-name="カレンダー">
+        <div class="app-icon-img calendar-app">
+          <div class="cal-app-header">カレンダー</div>
+          <div class="cal-app-grid" id="calAppGrid"></div>
+        </div>
+        <div class="app-label">カレンダー</div>
+      </div>
+      <div class="app-icon" data-name="写真">
+        <div class="app-icon-img photos">
+          <span class="app-glyph">🌸</span>
+        </div>
+        <div class="app-label">写真</div>
+      </div>
+      <div class="app-icon" data-name="カメラ">
+        <div class="app-icon-img camera">
+          <span class="app-glyph">📷</span>
+        </div>
+        <div class="app-label">カメラ</div>
+      </div>
+    </div>
+
+    <!-- アプリグリッド 2行目 -->
+    <div class="app-grid">
+      <div class="app-icon" data-name="メール">
+        <div class="app-icon-img mail">
+          <span class="app-glyph">✉️</span>
+        </div>
+        <div class="app-label">メール</div>
+      </div>
+      <div class="app-icon" data-name="メモ">
+        <div class="app-icon-img notes">
+          <span class="app-glyph">📝</span>
+        </div>
+        <div class="app-label">メモ</div>
+      </div>
+      <div class="app-icon" data-name="リマインダー">
+        <div class="app-icon-img reminders">
+          <span class="app-glyph">☑️</span>
+        </div>
+        <div class="app-label">リマインダー</div>
+      </div>
+      <div class="app-icon" data-name="時計">
+        <div class="app-icon-img clock" id="clockIcon">
+          <canvas id="clockCanvas" width="60" height="60"></canvas>
+        </div>
+        <div class="app-label">時計</div>
+      </div>
+    </div>
+
+  </div><!-- /.home-scroll -->
+
+  <!-- ページインジケーター -->
+  <div class="page-indicator">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+
+  <!-- Dock -->
+  <div class="dock">
+    <div class="dock-icon" data-name="電話" onclick="location.href='call.html'">
+      <div class="app-icon-img phone">
+        <span class="app-glyph">📞</span>
+      </div>
+    </div>
+    <div class="dock-icon" data-name="メッセージ">
+      <div class="app-icon-img messages">
+        <span class="app-glyph">💬</span>
+      </div>
+    </div>
+    <div class="dock-icon" data-name="ミュージック">
+      <div class="app-icon-img music">
+        <span class="app-glyph">🎵</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ホームインジケーター -->
+  <div class="home-indicator"></div>
+
+  <!-- タップフィードバック -->
+  <div class="tap-ripple" id="tapRipple"></div>
+
+  <script src="home.js"></script>
+</body>
+</html>
