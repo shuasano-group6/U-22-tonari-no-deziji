@@ -1,0 +1,190 @@
+/* =====================
+   Base & Reset
+   ===================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100svh;
+}
+
+body {
+  font-family: 'Hiragino Maru Gothic ProN', 'Hiragino Sans', 'BIZ UDPGothic', sans-serif;
+  min-height: 100svh;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* =====================
+   Screen 切り替え
+   ===================== */
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100svh;
+}
+
+.hidden {
+  display: none;
+}
+
+/* =====================
+   画面ごとの背景色
+   ===================== */
+#question1 { background-color: #ffffff; }
+#question2 { background-color: #ffffff; }
+
+/* =====================
+   Question Area
+   ===================== */
+.questionarea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+  padding: clamp(28px, 7vw, 52px) clamp(16px, 5vw, 32px) 0;
+  gap: clamp(28px, 7vw, 52px);
+}
+
+/* =====================
+   Title Block
+   ===================== */
+.title-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-block h1 {
+  font-size: clamp(20px, 5.2vw, 30px);
+  font-weight: 900;
+  color: #1a1a1a;
+  text-align: center;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+}
+
+/* =====================
+   Messages Area
+   ===================== */
+.messages-area {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  gap: clamp(16px, 4vw, 28px);
+}
+
+/* =====================
+   Message Text
+   ===================== */
+.message-text {
+  padding-left: clamp(8px, 3vw, 20px);
+}
+
+.message-text p {
+  font-size: clamp(18px, 4.6vw, 28px);
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+}
+
+/* =====================
+   Illustration Area（question1）
+   ===================== */
+.illust-area {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 clamp(4px, 2vw, 16px);
+}
+
+.illust-left {
+  width: clamp(120px, 34vw, 210px);
+  height: auto;
+  object-fit: contain;
+}
+
+.illust-right {
+  width: clamp(110px, 31vw, 195px);
+  height: auto;
+  object-fit: contain;
+  align-self: flex-start;
+}
+
+/* =====================
+   Illustration Area（question2: 右寄せ1枚）
+   ===================== */
+.illust-right-only {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.illust-phone-icon {
+  width: clamp(140px, 40vw, 240px);
+  height: auto;
+  object-fit: contain;
+  border-radius: 22%;
+}
+
+/* =====================
+   Button Area
+   ===================== */
+.btn-area {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 28px) clamp(16px, 5vw, 32px)
+           clamp(24px, 6vw, 40px);
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 3vw, 18px);
+  width: min(85%, 360px);
+  padding: clamp(16px, 4vw, 22px) clamp(24px, 6vw, 40px);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: clamp(22px, 5.5vw, 32px);
+  font-weight: 900;
+  color: #1a1a1a;
+  letter-spacing: 0.04em;
+  font-family: inherit;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* question1 のボタン：黄色 */
+.btn-next {
+  background-color: #F5E08A;
+}
+
+/* question2 のボタン：ピンク */
+.btn-pink {
+    background-color: #F5E08A;
+}
+
+button::after {
+  content: '›';
+  font-size: clamp(28px, 7vw, 40px);
+  font-weight: 700;
+  line-height: 1;
+  margin-top: -2px;
+}
+
+button:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}

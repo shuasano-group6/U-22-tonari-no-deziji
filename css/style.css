@@ -13,9 +13,9 @@ body{
 .home-screen{
     min-height: 100svh;
 
-    background-image:url("images/start-bg.png");
+    background-image:url("../images/start-bg.png");
     background-size:cover;
-    background-position:center;
+    background-position:center; 
     background-repeat:no-repeat;
 
     display:flex;
