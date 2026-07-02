@@ -157,8 +157,6 @@ body{
 }
 
 
-
-
 /* ────────────────────────────────────────
    正解・不正解・孫への電話・クリア 共通ベース
    position: fixed で viewport 基準に配置し
@@ -344,45 +342,6 @@ body{
     top: 5vh;
 }
 
-.childInfo{
-    position: absolute;
-    top: 25vh;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: clamp(120px, 40vw, 50vw);
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-
-.childInfo img{
-    width: 100%;
-}
-
-.childInfo h1{
-    font-size: clamp(1rem, 5.5vw, 2.5rem);
-    margin: 0;
-    font-weight: bold;
-}
-
-.iconBtnArea{
-    position: absolute;
-    top: 50vh;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60vw;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.iconBtnArea img{
-    width: clamp(50px, 16vw, 20vw);
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-}
-
 /* ── クリア画面 ── */
 /* callFinish は共通ベースで fixed 済み */
 
@@ -399,39 +358,3 @@ body{
 .hidden{
     display:none;
 }
-
-
-
-
-/* .userArea{
-    position: absolute;
-    top: 18vh;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90vw;
-}
-.userArea p {
-    border-bottom: 2px solid #a5a4a4;
-    margin: 0;
-}
-.user{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-bottom: 2vh;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-}
-.user img{
-    width: clamp(50px, 20vw, 200px);
-    height: clamp(50px, 20vw, 200px);
-    border-radius: 50%;
-    margin-right: clamp(10px, 4vw, 30px);
-    flex-shrink: 0;
-}
-
-.user h1{
-    font-size: clamp(1rem, 5.5vw, 3rem);
-    margin: 0;
-} */
