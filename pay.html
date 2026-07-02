@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>となりのデジタル</title>
+<link rel="stylesheet" href="pay.css">
+</head>
+<body>
+    <div id="payScreen" class="payWrapper">
+        <div class="topArea">
+            <button class="topBtn" onclick="location.href='home.html'">＜</button>
+            <h1>dejipay</h1>
+            <button class="topBtn">＋</button>
+        </div>
+        <div class="payArea" onclick="correct()">
+
+            <div class="barcode">
+            <img src="images/barcode.png" alt="バーコード">
+            </div>
+
+            <div class="qrArea">
+            <img src="images/qrcode.jpg" alt="QRコード">
+            <div class="qr">
+            <p>支払方法</p>
+            <h2>dejipay残高</h2>
+            </div>
+            </div>
+        </div>
+
+        <div class="payMenu">
+            <div class="menuButton" onclick="incorrect('スキャンを押しました。\nアプリによっては「コード読み取り」と書かれています。')">
+                <img src = "images/scan.png" alt="スキャン">
+                <p>スキャン</p>
+            </div>
+            <div class="menuButton" onclick="incorrect('送るを押しました。\n特定の相手に残高を送ることができます。')">
+                <img src="images/send.png" alt="送る">
+                <p>送る</p>
+            </div>
+            <div class="menuButton" onclick="incorrect('ポイントを押しました。\nQR決済をすることでポイントが貯まるものもあります。')">
+                <img src="images/point.png" alt="ポイント">
+                <p>ポイント</p>
+            </div>
+            <div class="menuButton" onclick="incorrect('取引履歴を押しました。\n取引の履歴を見ることができます。')">
+                <img src="images/rireki.png" alt="取引履歴">
+                <p>取引履歴</p>
+            </div>
+            <div class="menuButton" onclick="incorrect('チャージを押しました。\nチャージすることで残高が増えます。')">
+                <img src="images/charge.png" alt="チャージ">
+                <p>チャージ</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="correctArea" class="correctArea hidden">
+        <div class="correctMessage">
+            <h1>正解です！！</h1>
+        </div>
+        <div class="owlMessage">
+            <img src="images/call-owl.png" alt="owl">
+            <div class="balloon">
+            今回はQRコードを
+                大きく表示する練習です。
+            </div>
+        </div>
+        <div class="checkMessage">
+            <img src="images/ffdcab.png">
+            <div class="Inh1">
+                <h1>無事決済画面にいけました!!</h1>
+                <h1>実際にはQRコードが大画面に表示されます</h1>
+            </div>
+        </div>
+        <div class="correctNextMessage">
+            <img src="images/f6b52c.png">
+            <div class="Inh1">
+                <h1>さぁ！！次の段階です！！</h1>
+                <h1>もう一つのQR決済方法を試してみましょう！</h1>
+            </div>
+        </div>
+        <div class="retryBtn">
+            <button class="incorrectRetry" onclick="scanPay()">次へ挑戦　＞</button>
+        </div>
+    </div>
+    <div id="incorrectArea" class="incorrectArea hidden">
+        <div class="incorrectMessage">
+            <h1>おしいです！！</h1>
+        </div>
+        <div class="owlMessage">
+            <img src="images/call-owl.png" alt="owl">
+            <div class="balloon">
+                今回はQRコードを
+                大きく表示させる練習です。
+            </div>
+        </div>
+        <div class="checkMessage">
+            <img src="images/ffdcab.png">
+            <div class="Inh1">
+                <h1>あなたは</h1>
+                <h1 id="incorrectName"></h1>
+            </div>
+        </div>
+        <div class="retryMessage">
+            <img src="images/f6b52c.png">
+            <div class="Inh1">
+                <h1>QRコードを押すと明るく大きく表示されます</h1>
+                <h1>もう一度押してみましょう。</h1>
+            </div>
+        </div>
+        <div class="retryBtn">
+            <button class="incorrectRetry" onclick="location.href='pay.html'">＜　もう一度探してみる</button>
+        </div>
+    </div>
+
+    <div id="scanPay" class="scanPay hidden">
+        <div class="topArea">
+            <button class="topBtn" onclick="location.href='home.html'">＜</button>
+            <h1>dejipay</h1>
+            <button class="topBtn">＋</button>
+        </div>
+        <div class="payArea">
+
+            <div class="barcode">
+            <img src="images/barcode.png" alt="バーコード">
+            </div>
+
+            <div class="qrArea">
+            <img src="images/qrcode.jpg" alt="QRコード">
+            <div class="qr">
+            <p>支払方法</p>
+            <h2>dejipay残高</h2>
+            </div>
+            </div>
+        </div>
+
+        <div class="payMenu">
+            <div class="menuButton" onclick="payFinish()">
+                <img src = "images/scan.png" alt="スキャン">
+                <p>スキャン</p>
+            </div>
+            <div class="menuButton">
+                <img src="images/send.png" alt="送る">
+                <p>送る</p>
+            </div>
+            <div class="menuButton">
+                <img src="images/point.png" alt="ポイント">
+                <p>ポイント</p>
+            </div>
+            <div class="menuButton">
+                <img src="images/rireki.png" alt="取引履歴">
+                <p>取引履歴</p>
+            </div>
+            <div class="menuButton">
+                <img src="images/charge.png" alt="チャージ">
+                <p>チャージ</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="payFinish" class="payFinish hidden">
+        <img src="images/clear.png" alt="clear-owl" class="clearOwl">
+        <div class="checkMessage">
+            <img src="images/ffdcab.png">
+            <div class="Inh1">
+                <h1>おめでとうございます！</h1>
+                <h1>QRコードの読み取りしかないお店で使おう！</h1>
+                <h1>スキャン後に提示された金額を入力で</h1>
+                <h1>決済することができます！</h1>
+            </div>
+        </div>
+        <div class="retryMessage">
+            <img src="images/f6b52c.png">
+            <div class="Inh1">
+                <h1>様々なアプリのQR決済もほぼ同じ形式です。</h1>
+                <h1>今回を参考にしましょう!!</h1>
+            </div>
+        </div>
+        <div class="retryBtn">
+            <button class="incorrectRetry" onclick="location.href='index.html'">ホームに戻る</button>
+        </div>
+    </div>
+
+<script src="pay.js"></script>
+</body>
+</html> 
