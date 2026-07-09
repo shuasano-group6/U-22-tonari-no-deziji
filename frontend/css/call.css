@@ -1,0 +1,370 @@
+body{
+    font-family:sans-serif;
+    background:#ffffff;
+    margin:0;
+    overflow: hidden;
+    /* safe area for notch/home bar */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}
+
+/* ── 連絡先一覧ラッパー ── */
+.callWrapper{
+    width: 100%;
+    min-height: 100svh;
+    box-sizing: border-box;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+}
+
+.topArea{
+    position: absolute;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4vh;
+}
+
+.topBtn{
+    width: clamp(50px, 13vw, 100px);
+    height: clamp(50px, 13vw, 100px);
+    border-radius: 50%;
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+    font-size: clamp(1rem, 4.5vw, 2rem);
+    font-weight: bold;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.topArea h1{
+    font-size: clamp(1.2rem, 6vw, 3rem);
+    margin: 0;
+}
+
+.researchArea{
+    position: absolute;
+    top: 12vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;
+}
+
+.search-form-6 {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border: 2px solid #000000;
+    border-radius: 24px;
+}
+
+.search-form-6:hover {
+    box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
+}
+
+.search-form-6::before {
+    width: clamp(30px, 10vw, 100px);
+    height: clamp(25px, 6vw, 50px);
+    margin: 10px;
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%20%3Cpath%20d%3D%22M23.7%2020.8%2019%2016.1c-.2-.2-.5-.3-.8-.3h-.8c1.3-1.7%202-3.7%202-6C19.5%204.4%2015.1%200%209.7%200S0%204.4%200%209.7s4.4%209.7%209.7%209.7c2.3%200%204.3-.8%206-2v.8c0%20.3.1.6.3.8l4.7%204.7c.4.4%201.2.4%201.6%200l1.3-1.3c.5-.5.5-1.2.1-1.6zm-14-5.1c-3.3%200-6-2.7-6-6s2.7-6%206-6%206%202.7%206%206-2.6%206-6%206z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%20%3C%2Fsvg%3E');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: '';
+    flex-shrink: 0;
+}
+
+.search-form-6 input {
+    width: 100%;
+    padding: 5px 25px 5px 0;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
+}
+
+.userArea{
+    position: absolute;
+    top: 18vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;
+}
+
+.userArea p {
+    border-bottom: 2px solid #a5a4a4;
+    margin: 0;
+}
+
+.user{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2vh;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.user img{
+    width: clamp(50px, 20vw, 200px);
+    height: clamp(50px, 20vw, 200px);
+    border-radius: 50%;
+    margin-right: clamp(10px, 4vw, 30px);
+    flex-shrink: 0;
+}
+
+.user h1{
+    font-size: clamp(1rem, 5.5vw, 3rem);
+    margin: 0;
+}
+
+/* ────────────────────────────────────────
+   正解・不正解・孫への電話・クリア 共通ベース
+   position: fixed で viewport 基準に配置し
+   transform の -50% を上方向に使わない
+──────────────────────────────────────── */
+
+.correctArea,
+.incorrectArea,
+.grandchildCall,
+.callFinish {
+    position: fixed;       /* ← absolute→fixed に変更 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100svh;
+    box-sizing: border-box;
+    /* 内部の子要素は vh 基準の absolute で引き続き配置 */
+}
+
+/* ── 正解画面 ── */
+.correctMessage{
+    position: absolute;
+    top: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    font-size: clamp(1.1rem, 5.5vw, 2.5rem);
+}
+
+.correctNextMessage{
+    position: absolute;
+    top: 63vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.correctNextMessage img{
+    width: 90vw;
+    display: block;
+}
+
+/* ── 不正解画面 ── */
+.incorrectMessage{
+    position: absolute;
+    top: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    font-size: clamp(1.1rem, 5.5vw, 2.5rem);
+}
+
+.owlMessage{
+    position: absolute;
+    top: 20vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;               /* ← 100%→90vw で左右の余白を確保 */
+    display: flex;
+    align-items: center;
+}
+
+.owlMessage img{
+    width: clamp(80px, 30vw, 35vw);
+    flex-shrink: 0;
+}
+
+.balloon {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 45vw;
+    min-height: 5vh;
+    margin-left: clamp(12px, 3vw, 20px);
+    padding: .8em 1.2em;
+    border: clamp(4px, 1.5vw, 10px) solid #ff745c;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333333;
+    font-size: clamp(0.85rem, 3.5vw, 1.8rem);
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.balloon::before,
+.balloon::after {
+    position: absolute;
+    left: clamp(-25px, -5vw, -50px);
+    width: clamp(20px, 5vw, 50px);
+    height: clamp(16px, 4vw, 40px);
+    clip-path: polygon(0 50%, 100% 0, 100% 100%);
+    content: '';
+}
+
+.balloon::before {
+    background-color: #ff745c;
+}
+
+.balloon::after {
+    left: clamp(-6px, -1.2vw, -11px);
+    background-color: #fff;
+}
+
+.checkMessage{
+    position: absolute;
+    top: 38vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.checkMessage img{
+    width: 90vw;
+    display: block;
+}
+
+.Inh1{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    color: #000000;
+    font-size: clamp(0.75rem, 3vw, 1.5rem);
+    font-weight: bold;
+}
+
+.Inh1 h1 {
+    font-size: inherit;
+    margin: 0.2em 0;
+}
+
+.retryMessage{
+    position: absolute;
+    top: 63vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.retryMessage img{
+    width: 90vw;
+    display: block;
+}
+
+.retryBtn{
+    position: absolute;
+    top: 88vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+}
+
+.incorrectRetry {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    padding: .9em 2em;
+    border: 2px solid #fff;
+    border-radius: 25px;
+    box-shadow: 0 0 0 3px #b48455;
+    background-color: #b48455;
+    color: #fff;
+    font-weight: 600;
+    font-size: clamp(0.9rem, 3.5vw, 2rem);
+    cursor: pointer;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* ── 孫への電話画面 ── */
+/* grandchildCall は共通ベースで fixed 済み */
+
+/* topArea は callWrapper 内と grandchildCall 内で共用 */
+.grandchildCall .topArea {
+    top: 5vh;
+}
+
+.childInfo{
+    position: absolute;
+    top: 25vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(120px, 40vw, 50vw);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.childInfo img{
+    width: 100%;
+}
+
+.childInfo h1{
+    font-size: clamp(1rem, 5.5vw, 2.5rem);
+    margin: 0;
+    font-weight: bold;
+}
+
+.iconBtnArea{
+    position: absolute;
+    top: 50vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.iconBtnArea img{
+    width: clamp(50px, 16vw, 20vw);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* ── クリア画面 ── */
+/* callFinish は共通ベースで fixed 済み */
+
+.clearOwl{
+    position: absolute;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(150px, 65vw, 75vw);
+}
+
+/* クリア画面の checkMessage・retryBtn は共通クラスを流用 */
+
+.hidden{
+    display:none;
+}

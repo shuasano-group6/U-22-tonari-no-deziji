@@ -1,0 +1,395 @@
+/* ===========================
+   iPhone Home Screen — style.css
+   対象: iPhone Safari (viewport-fit=cover)
+   =========================== */
+
+/* ---------- リセット & ベース ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
+}
+
+body {
+  position: fixed;
+  inset: 0;
+  /* 背景: 画像を画面いっぱいに */
+  /* background-image: url('bg.jpg'); */
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-color: #1a6b5c; /* フォールバック */
+}
+
+/* ---------- ステータスバー ---------- */
+.status-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(env(safe-area-inset-top, 44px) + 8px);
+  padding-top: env(safe-area-inset-top, 44px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 16px;
+  z-index: 100;
+}
+
+.status-time {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-icon {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* ---------- スクロール領域 ---------- */
+.home-scroll {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 44px) + 16px);
+  left: 0;
+  right: 0;
+  bottom: calc(env(safe-area-inset-bottom, 34px) + 116px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* スクロールバー非表示 */
+.home-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------- ウィジェット行 ---------- */
+.widget-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.widget {
+  flex: 1;
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 12px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: transform 0.12s ease, opacity 0.12s ease;
+  cursor: pointer;
+}
+
+.widget:active {
+  transform: scale(0.94);
+  opacity: 0.85;
+}
+
+/* 天気ウィジェット */
+.widget-weather {
+  background: rgba(100, 100, 110, 0.55);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.weather-temp {
+  font-size: clamp(22px, 6vw, 28px);
+  font-weight: 700;
+  color: #fff;
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  letter-spacing: -0.5px;
+}
+
+.weather-icon {
+  font-size: clamp(26px, 7vw, 34px);
+  margin-bottom: 4px;
+  align-self: flex-start;
+}
+
+/* カレンダーウィジェット */
+.widget-calendar {
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(255,255,255,0.5);
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 14px;
+}
+
+.cal-day-name {
+  font-size: clamp(14px, 3.8vw, 18px);
+  font-weight: 500;
+  color: #e33;
+  letter-spacing: 0.2px;
+  margin-bottom: 2px;
+}
+
+.cal-date {
+  font-size: clamp(38px, 10vw, 52px);
+  font-weight: 200;
+  color: #111;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+/* ウィジェットラベル (アイコン下のテキスト) */
+.widget-label {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(10px, 2.8vw, 12px);
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ウィジェット行全体をラップして下のラベル分スペース確保 */
+.widget-row {
+  padding-bottom: 24px;
+}
+
+/* ---------- アプリグリッド ---------- */
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px 4px;
+  width: 100%;
+}
+
+/* ---------- アプリアイコン ---------- */
+.app-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+
+.app-icon:active {
+  transform: scale(0.88);
+  opacity: 0.8;
+}
+
+.app-icon-img {
+  width: clamp(60px, 16.5vw, 76px);
+  height: clamp(60px, 16.5vw, 76px);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(28px, 8vw, 36px);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.app-label {
+  font-size: clamp(10px, 2.6vw, 12px);
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: clamp(60px, 17vw, 80px);
+  text-overflow: ellipsis;
+}
+
+/* --- 各アプリの背景色 --- */
+.facetime   { background: linear-gradient(145deg, #34c759, #1e8e39); }
+.calendar-app {
+  background: #fff;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0;
+  font-size: inherit;
+}
+.photos     { background: linear-gradient(135deg, #fff 0%, #fff 100%); }
+.camera     { background: linear-gradient(145deg, #9b9ba0, #636366); }
+.mail       { background: linear-gradient(145deg, #4fc3f7, #1565c0); }
+.notes      { background: linear-gradient(145deg, #fff9c4, #ffd54f); }
+.reminders  { background: #1c1c1e; }
+.clock      { background: #1c1c1e; padding: 0; }
+.phone      { background: linear-gradient(145deg, #c8f5a0, #4cd964); }
+.messages   { background: linear-gradient(145deg, #4cd964, #00b300); }
+.music      { background: linear-gradient(145deg, #f44, #c00); }
+
+/* 写真アプリ: 花びら風グラデーション */
+.photos {
+  background: conic-gradient(
+    #f7c948 0deg 45deg,
+    #f7a848 45deg 90deg,
+    #e84444 90deg 135deg,
+    #c040c0 135deg 180deg,
+    #4870f0 180deg 225deg,
+    #30c0a0 225deg 270deg,
+    #50c840 270deg 315deg,
+    #b0e030 315deg 360deg
+  );
+}
+
+/* ---------- カレンダーアプリアイコン内 ---------- */
+.cal-app-header {
+  width: 100%;
+  background: #e33;
+  color: #fff;
+  font-size: clamp(7px, 2vw, 9px);
+  font-weight: 600;
+  text-align: center;
+  padding: 2px 0;
+  letter-spacing: 0.5px;
+}
+
+.cal-app-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  padding: 2px 3px;
+  width: 100%;
+  flex: 1;
+}
+
+.cal-cell {
+  font-size: clamp(5px, 1.4vw, 7px);
+  text-align: center;
+  color: #111;
+  line-height: 1.5;
+}
+
+.cal-cell.today {
+  background: #e33;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 700;
+}
+
+.cal-cell.sun { color: #e33; }
+.cal-cell.sat { color: #4466dd; }
+
+/* ---------- 時計アプリ Canvas ---------- */
+#clockCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ---------- ページインジケーター ---------- */
+.page-indicator {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 34px) + 110px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 7px;
+  z-index: 50;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.45);
+  transition: background 0.25s;
+}
+
+.dot.active {
+  background: rgba(255,255,255,0.92);
+}
+
+/* ---------- Dock ---------- */
+.dock {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 34px) + 8px);
+  left: 16px;
+  right: 16px;
+  height: 90px;
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 12px;
+  z-index: 80;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.dock-icon {
+  cursor: pointer;
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+
+.dock-icon:active {
+  transform: scale(0.88);
+  opacity: 0.8;
+}
+
+.dock-icon .app-icon-img {
+  width: clamp(62px, 17vw, 78px);
+  height: clamp(62px, 17vw, 78px);
+}
+
+/* ---------- ホームインジケーター ---------- */
+.home-indicator {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36%;
+  max-width: 134px;
+  height: 5px;
+  background: rgba(255,255,255,0.55);
+  border-radius: 3px;
+  z-index: 200;
+}
+
+/* ---------- タップリップル ---------- */
+.tap-ripple {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  transform: scale(0);
+  opacity: 0;
+  z-index: 300;
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+.tap-ripple.active {
+  transform: scale(1);
+  opacity: 0;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>となりのデジタル</title>
+  <link rel="stylesheet" href="css/question.css">
+</head>
+<body>
+
+  <!-- ===== 画面1: 電話アイコンをさがす ===== -->
+  <div id="question1" class="screen">
+
+    <div class="questionarea">
+      <div class="title-block">
+        <h1>まずは初めの画面から</h1>
+        <h1>電話をさがしてみましょう！</h1>
+      </div>
+
+      <div class="messages-area">
+        <div class="message-text">
+          <p>最初の挑戦です！</p>
+          <p>このボタンをさがし</p>
+          <p>さわってみましょう!</p>
+        </div>
+        <div class="illust-area illust-right-only">
+          <img class="illust-phone-icon" src="images/home-call-icon.png" alt="電話アイコン">
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-area">
+      <button class="btn-next btn-pink" data-next="question2" onclick="location.href='home.html'">練習を始める</button>
+    </div>
+
+  </div>
+
+  <!-- ===== 画面2: イントロ ===== -->
+  <div id="question2" class="screen hidden">
+
+    <div class="questionarea">
+      <div class="title-block">
+        <h1>まずはお孫さんに電話をかける</h1>
+        <h1>練習をしてみましょう</h1>
+      </div>
+
+      <div class="messages-area">
+        <div class="message-text">
+          <p>この練習では</p>
+          <p>お孫さんに電話を</p>
+          <p>かける手順を学びます</p>
+        </div>
+        <div class="illust-area">
+          <img class="illust-left" src="images/mago_obaatyan.png" alt="おばあさんとお孫さん">
+          <img class="illust-right" src="images/school_girl.png" alt="電話をかける女の子">
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-area">
+      <button class="btn-next" data-next="question3" onclick="location.href='call.html'">練習を始める</button>
+    </div>
+
+  </div>
+
+  <!-- ===== 画面3以降はここに追加 ===== -->
+
+  <script src="js/question.js"></script>
+</body>
+</html>
