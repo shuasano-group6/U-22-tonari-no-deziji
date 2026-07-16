@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ふりかえり - となりのデジジ</title>
+<link rel="stylesheet" href="css/reflection.css">
+</head>
+<body>
+<main class="reflection-page">
+  <section class="reflection-card">
+    <h1>ふりかえり</h1>
+    <p class="lead">これまでの練習結果を見てみましょう</p>
+
+    <div id="scenarioList" class="scenario-list">
+      <article class="scenario-result">
+        <div>
+          <h2>電話</h2>
+          <p id="phoneStatus">記録を読み込んでいます...</p>
+        </div>
+        <div class="scenario-stats">
+          <span>挑戦 <strong id="phoneAttempts">-</strong>回</span>
+          <span>最新 <strong id="phoneLatest">-</strong>点</span>
+          <span>ベスト <strong id="phoneBest">-</strong>点</span>
+        </div>
+      </article>
+
+      <article class="scenario-result disabled">
+        <div>
+          <h2>LINE</h2>
+          <p>まだ記録はありません</p>
+        </div>
+        <div class="scenario-stats">
+          <span>挑戦 <strong>0</strong>回</span>
+          <span>最新 <strong>-</strong></span>
+          <span>ベスト <strong>-</strong></span>
+        </div>
+      </article>
+
+      <article class="scenario-result disabled">
+        <div>
+          <h2>写真</h2>
+          <p>まだ記録はありません</p>
+        </div>
+        <div class="scenario-stats">
+          <span>挑戦 <strong>0</strong>回</span>
+          <span>最新 <strong>-</strong></span>
+          <span>ベスト <strong>-</strong></span>
+        </div>
+      </article>
+    </div>
+
+    <button class="back-button" onclick="location.href='index.html'">ホームに戻る</button>
+  </section>
+</main>
+
+<script src="js/api.js"></script>
+<script src="js/reflection.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プレイ結果 - となりのデジジ</title>
+  <link rel="stylesheet" href="css/results.css">
+</head>
+<body>
+  <main class="results-wrapper">
+    <section class="results-card">
+      <h1>プレイ結果</h1>
+
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th>今回</th>
+            <th>前回</th>
+            <th>ベスト</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>正解数</th>
+            <td id="currentCorrect">-</td>
+            <td id="previousCorrect">-</td>
+            <td id="bestCorrect">-</td>
+          </tr>
+          <tr>
+            <th>間違い数</th>
+            <td id="currentIncorrect">-</td>
+            <td id="previousIncorrect">-</td>
+            <td id="bestIncorrect">-</td>
+          </tr>
+          <tr>
+            <th>正解率</th>
+            <td id="currentAccuracy">-</td>
+            <td id="previousAccuracy">-</td>
+            <td id="bestAccuracy">-</td>
+          </tr>
+          <tr>
+            <th>スコア</th>
+            <td id="currentScore">-</td>
+            <td id="previousScore">-</td>
+            <td id="bestScore">-</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p id="resultMessage" class="result-message">
+        結果を読み込んでいます...
+      </p>
+
+      <div class="result-buttons">
+        <button onclick="location.href='index.html'">
+          ホームに戻る
+        </button>
+        <button onclick="location.href='question.html#question1'">
+          もう一度挑戦
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/results.js"></script>
+</body>
+</html>
