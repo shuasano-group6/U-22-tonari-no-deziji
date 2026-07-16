@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>となりのデジタル</title>
 <link rel="stylesheet" href="css/call.css">
+<link rel="stylesheet" href="css/success-effect.css">
+
+
 </head>
 <body>
     <div id="callScreen" class="callWrapper">
@@ -103,7 +106,7 @@
             </div>
         </div>
         <div class="retryBtn">
-            <button class="incorrectRetry" onclick="location.href='call.html'">＜　もう一度探してみる</button>
+            <button class="incorrectRetry" onclick="retryContactSelection()">＜　もう一度探してみる</button>
         </div>
     </div>
 
@@ -117,9 +120,9 @@
             <h1>孫</h1>
         </div>
         <div class="iconBtnArea">
-            <img src="images/message-icon.png" alt="メッセージ">
+            <img src="images/message-icon.png" alt="メッセージ" onclick="incorrectCallAction('メッセージ')">
             <img src="images/phone-icon.png" alt="電話" onclick="callFinish()">
-            <img src="images/videoCall-icon.png" alt="ビデオ通話">
+            <img src="images/videoCall-icon.png" alt="ビデオ通話" onclick="incorrectCallAction('ビデオ通話')">
         </div>
     </div>
 
@@ -133,11 +136,17 @@
                 <h1>かける事ができました！</h1>
             </div>
         </div>
-        <div class="retryBtn">
-            <button class="incorrectRetry" onclick="location.href='index.html'">ホームに戻る</button>
+        <div class="resultBtn">
+            <button class="incorrectRetry" onclick="openResultsPage()">結果を見てみる</button>
+        </div>
+
+        <div class="retryBtn finishHomeBtn">
+            <button class="incorrectRetry" onclick="finishScenarioAndReturnHome()">ホームに戻る</button>
         </div>
     </div>
 
+<script src="js/api.js"></script>
+<script src="js/success-effect.js"></script>
 <script src="js/call.js"></script>
 </body>
 </html> 

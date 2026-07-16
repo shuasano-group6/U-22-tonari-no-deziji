@@ -1,47 +1,244 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>となりのデジタル</title>
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <title>となりのデジジ</title>
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <div class="container">
-        <div id="homeScreen" class="screen home-screen">
-            <div class="owl"><img src="images/start-owl.png" alt="owl"></div>
+
+    <main class="container">
+
+        <!-- =========================
+             ホーム画面
+        ========================== -->
+        <section
+            id="homeScreen"
+            class="screen home-screen"
+        >
+
+            <div class="owl">
+                <img
+                    src="images/start-owl.png"
+                    alt="となりのデジジのふくろう"
+                >
+            </div>
+
             <div class="title">
-                <h2 class="heading">となりのデジジ</h2>
+                <h1 class="heading">
+                    となりのデジジ
+                </h1>
             </div>
+
             <div class="buttons">
-                <button class="button-1" onclick="startScenario()">やってみる</button>
-                <button class="button-2">お助け</button>
-                <button class="button-3">設定</button>
-            </div>
-        </div>
 
-        <div id="scenarioScreen" class="screen hidden">
-            <div class="scenarioTitle">
+                <button
+                    type="button"
+                    class="homeButton button-1"
+                    onclick="startScenario()"
+                >
+                    やってみる
+                </button>
+
+                <button
+                    type="button"
+                    class="homeButton button-2"
+                    onclick="openReflection()"
+                >
+                    ふりかえり
+                </button>
+
+                <button
+                    type="button"
+                    class="homeButton button-3"
+                >
+                    設定
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             シナリオ選択画面
+        ========================== -->
+        <section
+            id="scenarioScreen"
+            class="screen scenario-screen hidden"
+        >
+
+            <header class="scenarioTitle">
                 <h2>シナリオ選択</h2>
+            </header>
+
+
+            <!-- 音声入力 -->
+            <div class="voiceArea">
+
+                <button
+                    id="micButton"
+                    type="button"
+                    class="micBtn"
+                    onclick="startVoice()"
+                    aria-label="音声でシナリオを選ぶ"
+                >
+                    <span class="micIcon">🎤</span>
+                    <span class="micText">音声で選ぶ</span>
+                </button>
+
+                <p
+                    id="voiceResult"
+                    class="voiceResult hidden"
+                    aria-live="polite"
+                ></p>
+
+                <!-- 「孫」と認識した場合 -->
+                <div
+                    id="grandchildChoice"
+                    class="grandchildChoice hidden"
+                >
+
+                    <p class="choiceMessage">
+                        どちらを練習しますか？
+                    </p>
+
+                    <div class="choiceButtons">
+
+                        <button
+                            type="button"
+                            class="choiceButton"
+                            onclick="openPhoneScenario()"
+                        >
+                            電話
+                        </button>
+
+                        <button
+                            type="button"
+                            class="choiceButton"
+                            onclick="loadScenario('LINE')"
+                        >
+                            LINE
+                        </button>
+
+                        <button
+                            type="button"
+                            class="choiceCancelButton"
+                            onclick="closeGrandchildChoice()"
+                        >
+                            選び直す
+                        </button>
+
+                    </div>
+
+                </div>
+
             </div>
-            <div class="scenarios">
-                <button class="scenarioBtn sBtn1" onclick="location.href='question.html#question1'">電話</button>
-                <button class="scenarioBtn sBtn2" onclick="loadScenario('LINE')">LINE</button>
-                <button class="scenarioBtn sBtn3" onclick="loadScenario('写真')">写真</button>
+
+
+            <!-- 通常のシナリオボタン -->
+            <div
+                id="scenarioButtons"
+                class="scenarios"
+            >
+
+                <button
+                    type="button"
+                    class="scenarioBtn sBtn1"
+                    onclick="openPhoneScenario()"
+                >
+                    電話
+                </button>
+
+                <button
+                    type="button"
+                    class="scenarioBtn sBtn2"
+                    onclick="loadScenario('LINE')"
+                >
+                    LINE
+                </button>
+
+                <button
+                    type="button"
+                    class="scenarioBtn sBtn3"
+                    onclick="loadScenario('写真')"
+                >
+                    写真
+                </button>
+
             </div>
+
+
+            <!-- ホームへ戻る -->
             <div class="btmBtn">
-                <img src="images/startBack.png" alt="return" class="returnIcon" onclick="goHome()">
+
+                <button
+                    type="button"
+                    class="returnButton"
+                    onclick="goHome()"
+                    aria-label="ホームへ戻る"
+                >
+                    <img
+                        src="images/startBack.png"
+                        alt=""
+                        class="returnIcon"
+                    >
+                </button>
+
             </div>
-        </div>
 
-        <div id="playScreen" class="screen hidden">
-            <div class="owl">🦉</div>
-            <h2 id="scenarioTitle"></h2>
+        </section>
+
+
+        <!-- =========================
+             簡易プレイ画面
+        ========================== -->
+        <section
+            id="playScreen"
+            class="screen play-screen hidden"
+        >
+
+            <div class="playOwl">
+                🦉
+            </div>
+
+            <h2 id="playScenarioTitle"></h2>
+
             <p id="scenarioText"></p>
-            <button onclick="success()">できた！</button>
-        </div>
-    </div>
 
-<script src="js/script.js"></script>
+            <button
+                type="button"
+                class="successButton"
+                onclick="success()"
+            >
+                できた！
+            </button>
+
+            <button
+                type="button"
+                class="playBackButton"
+                onclick="backToScenario()"
+            >
+                シナリオ選択に戻る
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+
 </body>
-</html> 
+
+</html>

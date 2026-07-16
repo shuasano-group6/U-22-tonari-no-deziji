@@ -1,32 +1,58 @@
 // =====================
-// となりのデジタル - question.js
+// となりのデジジ - question.js
 // =====================
 
-document.addEventListener('DOMContentLoaded', () => {
+'use strict';
 
-  // ── 画面切り替え共通関数 ──
-  function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(screen => {
-      screen.classList.add('hidden');
-    });
-    const target = document.getElementById(id);
-    if (target) {
-      target.classList.remove('hidden');
-      window.scrollTo(0, 0);
-    }
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach((screen) => {
+    screen.classList.add('hidden');
+  });
+
+  const target = document.getElementById(id);
+
+  if (target) {
+    target.classList.remove('hidden');
+    window.scrollTo(0, 0);
   }
+}
 
-  // ── 開始画面をURLハッシュで決定 ──
-  // 例: question.html#question2 → question2から開始
+async function startPhoneIconPractice() {
+  await saveActionLog({
+    scenarioId: 1,
+    sectionId: 1,
+    action: '電話アイコンを探す練習を開始した',
+    isCorrect: true,
+  });
+
+  location.href = 'home.html';
+}
+
+async function startContactPractice() {
+  await saveActionLog({
+    scenarioId: 1,
+    sectionId: 2,
+    action: '孫の連絡先を探す練習を開始した',
+    isCorrect: true,
+  });
+
+  location.href = 'call.html';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
   const startId = location.hash.replace('#', '') || 'question1';
   showScreen(startId);
 
-  // ── data-next属性を持つボタンで画面切り替え ──
-  document.querySelectorAll('.btn-next').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const nextId = btn.dataset.next;
-      if (nextId) showScreen(nextId);
+  document.querySelectorAll('.btn-next').forEach((button) => {
+    button.addEventListener('click', () => {
+      const nextId = button.dataset.next;
+
+      if (
+        nextId &&
+        !button.hasAttribute('onclick')
+      ) {
+        showScreen(nextId);
+      }
     });
   });
-
 });

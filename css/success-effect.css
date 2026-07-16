@@ -1,0 +1,322 @@
+/* =========================
+   成功演出 共通CSS
+========================= */
+
+.success-effect {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    min-height: 100svh;
+    padding:
+        max(20px, env(safe-area-inset-top))
+        max(20px, env(safe-area-inset-right))
+        max(20px, env(safe-area-inset-bottom))
+        max(20px, env(safe-area-inset-left));
+
+    background: rgba(255, 232, 190, 0.96);
+    backdrop-filter: blur(3px);
+
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.success-effect.hidden {
+    display: none !important;
+}
+
+.success-effect.is-opening {
+    animation: success-overlay-in 0.28s ease-out both;
+}
+
+.success-effect.is-closing {
+    animation: success-overlay-out 0.25s ease-in both;
+}
+
+.success-effect-content {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: min(92vw, 760px);
+    max-height: 92svh;
+
+    padding: clamp(14px, 3vw, 26px);
+
+    border: clamp(4px, 1vw, 8px) solid #f6b52c;
+    border-radius: clamp(20px, 4vw, 34px);
+
+    background: #ffffff;
+
+    box-shadow:
+        0 14px 38px rgba(92, 57, 22, 0.22),
+        inset 0 0 0 4px rgba(255, 235, 192, 0.55);
+
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.success-effect-content::before,
+.success-effect-content::after {
+    position: absolute;
+    top: -18px;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+
+    background: #f6b52c;
+    box-shadow:
+        48px 14px 0 #ffd782,
+        -48px 14px 0 #ffd782;
+
+    content: "";
+}
+
+.success-effect-content::before {
+    left: 16%;
+}
+
+.success-effect-content::after {
+    right: 16%;
+}
+
+.success-video {
+    display: block;
+
+    width: min(82vw, 560px);
+    max-width: 100%;
+    max-height: 60svh;
+
+    border: 0;
+    border-radius: clamp(16px, 3vw, 26px);
+
+    background: transparent;
+
+    object-fit: contain;
+}
+
+.success-message {
+    margin: clamp(12px, 2.5vh, 22px) 0 0;
+
+    color: #7a4c22;
+
+    font-size: clamp(1.8rem, 7vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.25;
+
+    white-space: pre-line;
+
+    text-shadow:
+        0 2px 0 #ffffff,
+        0 4px 10px rgba(122, 76, 34, 0.12);
+
+    animation: success-message-pop 0.52s cubic-bezier(.2, .8, .2, 1.18) both;
+}
+
+.success-sub-message {
+    margin: 10px 0 0;
+
+    color: #5f4936;
+
+    font-size: clamp(1rem, 3.8vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.5;
+
+    white-space: pre-line;
+}
+
+.success-skip-button {
+    margin-top: clamp(14px, 2.8vh, 24px);
+    padding: 0.75em 1.5em;
+
+    min-width: min(72vw, 320px);
+    min-height: 56px;
+
+    border: 3px solid #b48455;
+    border-radius: 18px;
+
+    background: #ffffff;
+    color: #7a4c22;
+
+    font-size: clamp(1rem, 4vw, 1.35rem);
+    font-weight: 700;
+
+    cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.success-skip-button:hover {
+    background: #fff6e5;
+}
+
+.success-skip-button:active {
+    transform: scale(0.97);
+}
+
+.success-skip-button:focus-visible {
+    outline: 5px solid #2457d6;
+    outline-offset: 4px;
+}
+
+.success-sparkle {
+    position: absolute;
+
+    width: clamp(18px, 4vw, 34px);
+    height: clamp(18px, 4vw, 34px);
+
+    pointer-events: none;
+
+    animation: success-sparkle-float 1.8s ease-in-out infinite;
+}
+
+.success-sparkle::before,
+.success-sparkle::after {
+    position: absolute;
+    inset: 0;
+
+    margin: auto;
+
+    background: #f6b52c;
+
+    content: "";
+}
+
+.success-sparkle::before {
+    width: 24%;
+    height: 100%;
+    border-radius: 999px;
+}
+
+.success-sparkle::after {
+    width: 100%;
+    height: 24%;
+    border-radius: 999px;
+}
+
+.success-sparkle-1 {
+    top: 8%;
+    left: 8%;
+    animation-delay: 0s;
+}
+
+.success-sparkle-2 {
+    top: 15%;
+    right: 9%;
+    transform: scale(0.8);
+    animation-delay: 0.35s;
+}
+
+.success-sparkle-3 {
+    bottom: 12%;
+    left: 11%;
+    transform: scale(0.65);
+    animation-delay: 0.7s;
+}
+
+.success-sparkle-4 {
+    right: 12%;
+    bottom: 10%;
+    transform: scale(0.9);
+    animation-delay: 1.05s;
+}
+
+@keyframes success-overlay-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes success-overlay-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes success-message-pop {
+    0% {
+        transform: scale(0.55);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes success-sparkle-float {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.75;
+    }
+
+    50% {
+        transform: translateY(-12px) rotate(20deg);
+        opacity: 1;
+    }
+}
+
+@media (max-height: 700px) {
+    .success-effect {
+        padding: 10px;
+    }
+
+    .success-effect-content {
+        max-height: 96svh;
+        padding: 12px;
+    }
+
+    .success-video {
+        max-height: 52svh;
+    }
+
+    .success-message {
+        margin-top: 8px;
+    }
+
+    .success-sub-message {
+        margin-top: 5px;
+    }
+
+    .success-skip-button {
+        min-height: 48px;
+        margin-top: 10px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .success-effect,
+    .success-effect.is-opening,
+    .success-effect.is-closing,
+    .success-message,
+    .success-sparkle {
+        animation: none !important;
+        transition: none !important;
+    }
+}

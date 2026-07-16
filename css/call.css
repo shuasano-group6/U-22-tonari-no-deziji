@@ -368,3 +368,17 @@ body{
 .hidden{
     display:none;
 }
+
+
+/* ── クリア画面の結果・ホームボタン ── */
+.callFinish .resultBtn{
+    position: absolute;
+    top: 78vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+}
+
+.callFinish .finishHomeBtn{
+    top: 88vh;
+}
