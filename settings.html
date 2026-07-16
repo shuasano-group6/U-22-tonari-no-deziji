@@ -70,6 +70,52 @@
             </form>
         </section>
 
+
+        <section
+            id="familyCodeCard"
+            class="familyCodeCard hidden"
+        >
+            <h2>ご家族との連携</h2>
+
+            <p>
+                このコードをご家族に伝えると、
+                ご家族の端末から見守りノートを確認できます。
+            </p>
+
+            <div class="familyCodeDisplay">
+                <span>家族コード</span>
+                <strong id="familyCodeValue">------</strong>
+            </div>
+
+            <p
+                id="familyCodeMessage"
+                class="familyCodeMessage hidden"
+                aria-live="polite"
+            ></p>
+
+            <div class="familyCodeButtons">
+                <button
+                    id="copyFamilyCodeButton"
+                    type="button"
+                    class="copyCodeButton"
+                >
+                    コードをコピー
+                </button>
+
+                <button
+                    id="regenerateFamilyCodeButton"
+                    type="button"
+                    class="regenerateCodeButton"
+                >
+                    コードを再発行
+                </button>
+            </div>
+
+            <small>
+                再発行すると、以前のコードは使えなくなります。
+            </small>
+        </section>
+
         <button type="button"
                 class="backButton"
                 onclick="location.href='index.html'">

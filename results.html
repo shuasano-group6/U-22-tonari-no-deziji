@@ -2,13 +2,19 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
   <title>プレイ結果 - となりのデジジ</title>
   <link rel="stylesheet" href="css/results.css">
 </head>
 <body>
+
   <main class="results-wrapper">
+
     <section class="results-card">
+
       <h1>プレイ結果</h1>
 
       <table class="results-table">
@@ -20,6 +26,7 @@
             <th>ベスト</th>
           </tr>
         </thead>
+
         <tbody>
           <tr>
             <th>正解数</th>
@@ -27,18 +34,21 @@
             <td id="previousCorrect">-</td>
             <td id="bestCorrect">-</td>
           </tr>
+
           <tr>
             <th>間違い数</th>
             <td id="currentIncorrect">-</td>
             <td id="previousIncorrect">-</td>
             <td id="bestIncorrect">-</td>
           </tr>
+
           <tr>
             <th>正解率</th>
             <td id="currentAccuracy">-</td>
             <td id="previousAccuracy">-</td>
             <td id="bestAccuracy">-</td>
           </tr>
+
           <tr>
             <th>スコア</th>
             <td id="currentScore">-</td>
@@ -48,45 +58,96 @@
         </tbody>
       </table>
 
-      <p id="resultMessage" class="result-message">
+      <p
+        id="resultMessage"
+        class="result-message"
+      >
         結果を読み込んでいます...
       </p>
 
-      <div
-          id="registerRecommend"
-          class="register-card hidden"
-      >
+      <section class="comment-panel">
+        <h2>みんなのコメント</h2>
 
-          <h2>📒 記録を残しませんか？</h2>
-
-          <p>
-              現在はゲストとして利用しています。
+        <div
+          id="commentList"
+          class="comment-list"
+          aria-live="polite"
+        >
+          <p class="comment-loading">
+            コメントを読み込んでいます…
           </p>
+        </div>
 
-          <ul>
-              <li>✅ 過去の結果を確認できます</li>
-              <li>✅ シナリオごとの上達が分かります</li>
-              <li>✅ ベストスコアを保存できます</li>
-          </ul>
+        <form
+          id="userCommentForm"
+          class="comment-form"
+        >
+          <label for="userComment">
+            あなたの感想
+          </label>
+
+          <textarea
+            id="userComment"
+            maxlength="300"
+            rows="4"
+            placeholder="できたことや、次に挑戦したいことを書いてみましょう"
+            required
+          ></textarea>
+
+          <p
+            id="commentMessage"
+            class="comment-message hidden"
+            role="alert"
+          ></p>
 
           <button
-              class="register-button"
-              onclick="location.href='settings.html'"
+            id="commentSubmitButton"
+            type="submit"
+            class="comment-submit-button"
           >
-              ユーザー登録する
+            感想を保存する
           </button>
+        </form>
+      </section>
 
+      <div
+        id="registerRecommend"
+        class="register-card hidden"
+      >
+        <h2>📒 記録を残しませんか？</h2>
+
+        <p>
+          ユーザー登録すると、過去の結果や
+          家族からのコメントを見返せます。
+        </p>
+
+        <button
+          type="button"
+          class="register-button"
+          onclick="location.href='settings.html'"
+        >
+          ユーザー登録する
+        </button>
       </div>
 
       <div class="result-buttons">
-        <button onclick="location.href='index.html'">
+        <button
+          type="button"
+          onclick="location.href='index.html'"
+        >
           ホームに戻る
         </button>
-        <button onclick="location.href='question.html#question1'">
+
+        <button
+          type="button"
+          onclick="location.href='question.html#question1'"
+        >
           もう一度挑戦
         </button>
       </div>
+
     </section>
+
   </main>
 
   <script src="js/api.js"></script>

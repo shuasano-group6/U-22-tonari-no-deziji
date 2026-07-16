@@ -350,3 +350,161 @@ button:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+
+.history-record {
+  padding: 18px;
+
+  border: 2px solid #eadfce;
+  border-radius: 18px;
+
+  background: #ffffff;
+}
+
+.history-summary {
+  display: grid;
+  grid-template-columns:
+    1.4fr repeat(3, 1fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.history-summary strong {
+  color: #d88900;
+}
+
+.history-comments {
+  display: grid;
+  gap: 10px;
+
+  margin-top: 16px;
+}
+
+.history-comment {
+  padding: 12px 14px;
+
+  border-radius: 14px;
+}
+
+.history-comment.ai {
+  background: #fff4d7;
+
+  border-left:
+    6px solid #f6b52c;
+}
+
+.history-comment.user {
+  background: #edf8ff;
+
+  border-left:
+    6px solid #62a9df;
+}
+
+.history-comment.family {
+  background: #f4edff;
+
+  border-left:
+    6px solid #9c78cf;
+}
+
+.history-comment-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+
+  margin-bottom: 6px;
+}
+
+.history-comment p {
+  margin: 0;
+
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.family-comment-form {
+  margin-top: 16px;
+  padding-top: 16px;
+
+  border-top: 2px dashed #eadfce;
+}
+
+.family-comment-form h3 {
+  margin: 0 0 12px;
+
+  color: #765132;
+}
+
+.family-comment-form label {
+  display: block;
+
+  margin-top: 10px;
+
+  font-weight: 800;
+}
+
+.family-comment-form input,
+.family-comment-form textarea {
+  width: 100%;
+
+  margin-top: 6px;
+  padding: 12px;
+
+  border: 2px solid #c9a274;
+  border-radius: 12px;
+
+  font: inherit;
+}
+
+.family-comment-form textarea {
+  min-height: 100px;
+
+  resize: vertical;
+}
+
+.family-comment-button {
+  width: min(100%, 320px);
+  min-height: 56px;
+
+  margin-top: 12px;
+  padding: 10px 16px;
+
+  border: none;
+  border-radius: 16px;
+
+  background: #9c78cf;
+  color: #ffffff;
+
+  font-size: 1.05rem;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.family-form-message {
+  margin: 10px 0 0;
+
+  color: #a1271f;
+
+  font-weight: 700;
+}
+
+.family-form-message.success {
+  color: #22712b;
+}
+
+@media (max-width: 700px) {
+  .history-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 430px) {
+  .history-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .history-comment-header {
+    flex-direction: column;
+  }
+}

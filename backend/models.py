@@ -14,12 +14,19 @@ class User(Base):
     birth_date = Column(String, nullable=True)
     login_id = Column(String, nullable=True, unique=True)
     password_hash = Column(String, nullable=True)
+    family_code = Column(String, nullable=True, unique=True, index=True)
     is_guest = Column(Boolean, default=True)
     last_login_at = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.now)
 
     play_sessions = relationship(
         "PlaySession",
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )
+
+    result_comments = relationship(
+        "ResultComment",
         back_populates="user",
         cascade="all, delete-orphan",
     )
@@ -62,8 +69,15 @@ class PlaySession(Base):
     is_completed = Column(Boolean, default=False, nullable=False)
 
     user = relationship("User", back_populates="play_sessions")
+
     action_logs = relationship(
         "ActionLog",
+        back_populates="play_session",
+        cascade="all, delete-orphan",
+    )
+
+    result_comments = relationship(
+        "ResultComment",
         back_populates="play_session",
         cascade="all, delete-orphan",
     )
@@ -73,12 +87,19 @@ class ActionLog(Base):
     __tablename__ = "action_logs"
 
     id = Column(Integer, primary_key=True, index=True)
+
     play_session_id = Column(
         Integer,
         ForeignKey("play_sessions.id"),
         nullable=False,
     )
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+
+    user_id = Column(
+        Integer,
+        ForeignKey("users.id"),
+        nullable=False,
+    )
+
     scenario_id = Column(Integer, nullable=False)
     section_id = Column(Integer, nullable=False)
     action = Column(String, nullable=False)
@@ -88,4 +109,43 @@ class ActionLog(Base):
     play_session = relationship(
         "PlaySession",
         back_populates="action_logs",
+    )
+
+
+class ResultComment(Base):
+    __tablename__ = "result_comments"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    play_session_id = Column(
+        Integer,
+        ForeignKey("play_sessions.id"),
+        nullable=False,
+        index=True,
+    )
+
+    user_id = Column(
+        Integer,
+        ForeignKey("users.id"),
+        nullable=False,
+        index=True,
+    )
+
+    # ai / user / family
+    author_type = Column(String, nullable=False)
+
+    # AI、本人名、家族の呼び名など
+    author_name = Column(String, nullable=False)
+
+    content = Column(String, nullable=False)
+    created_at = Column(DateTime, default=datetime.now, nullable=False)
+
+    play_session = relationship(
+        "PlaySession",
+        back_populates="result_comments",
+    )
+
+    user = relationship(
+        "User",
+        back_populates="result_comments",
     )

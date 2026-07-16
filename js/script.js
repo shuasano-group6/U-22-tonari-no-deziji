@@ -71,6 +71,10 @@ function openSettings() {
     location.href = 'settings.html';
 }
 
+function openFamilyNote() {
+    location.href = 'family.html';
+}
+
 
 // ==============================
 // 音声画面の状態管理
