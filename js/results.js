@@ -72,6 +72,23 @@ function showResult(result) {
   setResultText('resultMessage', message);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+
   showResult(getLastResult());
+
+  if (typeof getCurrentUser !== 'function') {
+    return;
+  }
+
+  const user = await getCurrentUser();
+
+  if (
+      user &&
+      user.is_guest
+  ) {
+      document
+          .getElementById('registerRecommend')
+          ?.classList.remove('hidden');
+  }
+
 });

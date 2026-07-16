@@ -113,3 +113,27 @@ h1 {
     margin-left: 6px;
   }
 }
+
+
+.clickable {
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.clickable:hover {
+  transform: translateY(-2px);
+  background: #fff4df;
+  box-shadow: 0 8px 18px rgba(105, 70, 36, 0.16);
+}
+
+.clickable:active {
+  transform: scale(0.99);
+}
+
+.clickable:focus-visible {
+  outline: 5px solid #2457d6;
+  outline-offset: 4px;
+}

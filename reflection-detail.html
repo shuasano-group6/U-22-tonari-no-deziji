@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+  <title>シナリオのふりかえり - となりのデジジ</title>
+  <link rel="stylesheet" href="css/reflection-detail.css">
+</head>
+<body>
+
+  <main class="detail-page">
+
+    <section class="detail-card">
+
+      <header class="detail-header">
+        <p class="eyebrow">ふりかえり</p>
+        <h1 id="scenarioTitle">記録を読み込んでいます…</h1>
+        <p id="detailStatus" class="detail-status">
+          過去の練習結果を確認しています。
+        </p>
+      </header>
+
+      <section
+        id="summaryArea"
+        class="summary-grid hidden"
+        aria-label="記録のまとめ"
+      >
+        <article class="summary-item">
+          <span>挑戦回数</span>
+          <strong id="attemptCount">0回</strong>
+        </article>
+
+        <article class="summary-item">
+          <span>平均スコア</span>
+          <strong id="averageScore">0点</strong>
+        </article>
+
+        <article class="summary-item">
+          <span>最高スコア</span>
+          <strong id="bestScore">0点</strong>
+        </article>
+
+        <article class="summary-item">
+          <span>平均正解率</span>
+          <strong id="averageAccuracy">0%</strong>
+        </article>
+      </section>
+
+      <section id="emptyArea" class="empty-area hidden">
+        <h2>まだ記録がありません</h2>
+        <p>シナリオに挑戦すると、ここに結果が表示されます。</p>
+        <button
+          type="button"
+          class="primary-button"
+          onclick="location.href='question.html#question1'"
+        >
+          電話に挑戦する
+        </button>
+      </section>
+
+      <section id="contentArea" class="hidden">
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">成長の記録</p>
+              <h2>スコアの推移</h2>
+            </div>
+          </div>
+
+          <div class="chart-shell">
+            <canvas
+              id="scoreChart"
+              width="700"
+              height="320"
+              aria-label="過去のスコア推移グラフ"
+            ></canvas>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">操作ごとの結果</p>
+              <h2>得意・苦手</h2>
+            </div>
+          </div>
+
+          <div id="sectionList" class="section-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">これまでの挑戦</p>
+              <h2>過去の記録</h2>
+            </div>
+          </div>
+
+          <div id="historyList" class="history-list"></div>
+        </section>
+
+      </section>
+
+      <div class="detail-buttons">
+        <button
+          type="button"
+          class="secondary-button"
+          onclick="location.href='reflection.html'"
+        >
+          ふりかえり一覧に戻る
+        </button>
+
+        <button
+          type="button"
+          class="home-button"
+          onclick="location.href='index.html'"
+        >
+          ホームに戻る
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/reflection-detail.js"></script>
+</body>
+</html>

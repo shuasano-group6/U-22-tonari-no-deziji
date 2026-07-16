@@ -56,6 +56,70 @@ async function userExists(userId) {
   }
 }
 
+
+async function getCurrentUser() {
+  const userId = await initializeUser();
+
+  if (userId === null) {
+    return null;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/${userId}`);
+    const data = await parseJsonResponse(response);
+
+    if (!response.ok) {
+      throw new Error(
+        data.detail || 'ユーザー情報を取得できませんでした'
+      );
+    }
+
+    return data;
+  } catch (error) {
+    console.error('ユーザー情報取得エラー:', error);
+    return null;
+  }
+}
+
+async function registerCurrentUser({
+  displayName,
+  birthDate,
+  loginId,
+  password,
+}) {
+  const userId = await initializeUser();
+
+  if (userId === null) {
+    throw new Error('ユーザーを準備できませんでした');
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/users/${userId}/register`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        display_name: displayName,
+        birth_date: birthDate || null,
+        login_id: loginId,
+        password,
+      }),
+    }
+  );
+
+  const data = await parseJsonResponse(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.detail || 'ユーザー登録に失敗しました'
+    );
+  }
+
+  return data;
+}
+
 async function createGuestUser() {
   try {
     const response = await fetch(`${API_BASE_URL}/users/guest`, {

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>設定・ユーザー登録 | となりのデジジ</title>
+    <link rel="stylesheet" href="css/settings.css">
+</head>
+<body>
+    <main class="settingsPage">
+        <header class="settingsHeader">
+            <h1>設定</h1>
+            <p>ユーザー登録をすると、これまでの記録を残せます。</p>
+        </header>
+
+        <section class="userCard">
+            <p id="userStatus" aria-live="polite">
+                ユーザー情報を確認しています…
+            </p>
+        </section>
+
+        <section class="registerCard">
+            <h2>ユーザー登録</h2>
+
+            <form id="registerForm" novalidate>
+                <label class="formGroup">
+                    <span>お名前</span>
+                    <input id="displayName" type="text"
+                           maxlength="50" autocomplete="name" required>
+                </label>
+
+                <label class="formGroup">
+                    <span>生年月日</span>
+                    <input id="birthDate" type="date" autocomplete="bday">
+                </label>
+
+                <label class="formGroup">
+                    <span>ログインID</span>
+                    <input id="loginId" type="text"
+                           minlength="4" maxlength="50"
+                           autocomplete="username" required>
+                    <small>4文字以上で入力してください。</small>
+                </label>
+
+                <label class="formGroup">
+                    <span>パスワード</span>
+                    <input id="password" type="password"
+                           minlength="8" maxlength="100"
+                           autocomplete="new-password" required>
+                    <small>8文字以上で入力してください。</small>
+                </label>
+
+                <label class="formGroup">
+                    <span>パスワード確認</span>
+                    <input id="passwordConfirm" type="password"
+                           minlength="8" maxlength="100"
+                           autocomplete="new-password" required>
+                </label>
+
+                <p id="formMessage"
+                   class="formMessage hidden"
+                   role="alert" aria-live="polite"></p>
+
+                <button id="registerButton"
+                        type="submit"
+                        class="primaryButton">
+                    ユーザー登録する
+                </button>
+            </form>
+        </section>
+
+        <button type="button"
+                class="backButton"
+                onclick="location.href='index.html'">
+            スタート画面に戻る
+        </button>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>

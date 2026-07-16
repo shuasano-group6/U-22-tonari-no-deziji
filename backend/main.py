@@ -397,3 +397,184 @@ def get_play_sessions(
             for session in sessions
         ],
     }
+
+@app.get("/users/{user_id}/scenarios/{scenario_id}/reflection")
+def get_scenario_reflection(
+    user_id: int,
+    scenario_id: int,
+    db: Session = Depends(get_db),
+):
+    user = db.query(User).filter(User.id == user_id).first()
+
+    if user is None:
+        raise HTTPException(
+            status_code=404,
+            detail="ユーザーが見つかりません",
+        )
+
+    sessions = (
+        db.query(PlaySession)
+        .filter(
+            PlaySession.user_id == user_id,
+            PlaySession.scenario_id == scenario_id,
+            PlaySession.is_completed.is_(True),
+        )
+        .order_by(PlaySession.finished_at.asc())
+        .all()
+    )
+
+    scenario_names = {
+        1: "電話",
+        2: "LINE",
+        3: "写真",
+    }
+
+    section_names = {
+        1: {
+            0: "シナリオ選択",
+            1: "電話アイコンを探す",
+            2: "孫の連絡先を選ぶ",
+            3: "連絡先の詳細を開く",
+            4: "電話ボタンを押す",
+        },
+        2: {
+            0: "シナリオ選択",
+            99: "シナリオ完了",
+        },
+        3: {
+            0: "シナリオ選択",
+            99: "シナリオ完了",
+        },
+    }
+
+    if not sessions:
+        return {
+            "user_id": user_id,
+            "scenario_id": scenario_id,
+            "scenario_name": scenario_names.get(
+                scenario_id,
+                f"シナリオ{scenario_id}",
+            ),
+            "summary": {
+                "attempts": 0,
+                "average_score": 0,
+                "best_score": 0,
+                "average_accuracy": 0.0,
+                "latest_score": None,
+                "latest_played_at": None,
+            },
+            "history": [],
+            "sections": [],
+        }
+
+    total_score = sum(session.score for session in sessions)
+    total_count = sum(session.total_count for session in sessions)
+    total_correct = sum(
+        session.correct_count for session in sessions
+    )
+
+    average_accuracy = (
+        round(total_correct / total_count * 100, 1)
+        if total_count > 0
+        else 0.0
+    )
+
+    latest = sessions[-1]
+    best = max(
+        sessions,
+        key=lambda item: (
+            item.score,
+            -item.incorrect_count,
+            item.correct_count,
+        ),
+    )
+
+    logs = (
+        db.query(ActionLog)
+        .filter(
+            ActionLog.user_id == user_id,
+            ActionLog.scenario_id == scenario_id,
+        )
+        .order_by(ActionLog.created_at.asc())
+        .all()
+    )
+
+    section_totals = {}
+
+    for log in logs:
+        if log.section_id not in section_totals:
+            section_totals[log.section_id] = {
+                "correct_count": 0,
+                "incorrect_count": 0,
+                "total_count": 0,
+            }
+
+        item = section_totals[log.section_id]
+        item["total_count"] += 1
+
+        if log.is_correct:
+            item["correct_count"] += 1
+        else:
+            item["incorrect_count"] += 1
+
+    sections = []
+
+    for section_id, counts in sorted(section_totals.items()):
+        total = counts["total_count"]
+        accuracy = (
+            round(counts["correct_count"] / total * 100, 1)
+            if total > 0
+            else 0.0
+        )
+
+        sections.append({
+            "section_id": section_id,
+            "section_name": (
+                section_names
+                .get(scenario_id, {})
+                .get(section_id, f"セクション{section_id}")
+            ),
+            "correct_count": counts["correct_count"],
+            "incorrect_count": counts["incorrect_count"],
+            "total_count": total,
+            "accuracy": accuracy,
+        })
+
+    return {
+        "user_id": user_id,
+        "scenario_id": scenario_id,
+        "scenario_name": scenario_names.get(
+            scenario_id,
+            f"シナリオ{scenario_id}",
+        ),
+        "summary": {
+            "attempts": len(sessions),
+            "average_score": round(total_score / len(sessions)),
+            "best_score": best.score,
+            "average_accuracy": average_accuracy,
+            "latest_score": latest.score,
+            "latest_played_at": latest.finished_at,
+        },
+        "history": [
+            {
+                "play_session_id": session.id,
+                "played_at": session.finished_at,
+                "score": session.score,
+                "accuracy": (
+                    round(
+                        session.correct_count
+                        / session.total_count
+                        * 100,
+                        1,
+                    )
+                    if session.total_count > 0
+                    else 0.0
+                ),
+                "correct_count": session.correct_count,
+                "incorrect_count": session.incorrect_count,
+            }
+            for session in sessions
+        ],
+        "sections": sections,
+    }
+

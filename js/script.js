@@ -67,6 +67,10 @@ function openReflection() {
     location.href = 'reflection.html';
 }
 
+function openSettings() {
+    location.href = 'settings.html';
+}
+
 
 // ==============================
 // 音声画面の状態管理
