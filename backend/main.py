@@ -1,6 +1,5 @@
 from datetime import datetime
-from hashlib import pbkdf2_hmac
-from secrets import choice, token_hex
+from secrets import choice
 from typing import Generator
 
 from fastapi import Depends, FastAPI, HTTPException
@@ -35,15 +34,16 @@ app.add_middleware(
 Base.metadata.create_all(bind=engine)
 
 
-def ensure_family_code_column() -> None:
+def ensure_user_code_columns() -> None:
     inspector = inspect(engine)
+
     columns = {
         column["name"]
         for column in inspector.get_columns("users")
     }
 
-    if "family_code" not in columns:
-        with engine.begin() as connection:
+    with engine.begin() as connection:
+        if "family_code" not in columns:
             connection.execute(
                 text(
                     "ALTER TABLE users "
@@ -51,7 +51,14 @@ def ensure_family_code_column() -> None:
                 )
             )
 
-    with engine.begin() as connection:
+        if "recovery_code" not in columns:
+            connection.execute(
+                text(
+                    "ALTER TABLE users "
+                    "ADD COLUMN recovery_code VARCHAR"
+                )
+            )
+
         connection.execute(
             text(
                 "CREATE UNIQUE INDEX IF NOT EXISTS "
@@ -60,8 +67,16 @@ def ensure_family_code_column() -> None:
             )
         )
 
+        connection.execute(
+            text(
+                "CREATE UNIQUE INDEX IF NOT EXISTS "
+                "ix_users_recovery_code "
+                "ON users (recovery_code)"
+            )
+        )
 
-ensure_family_code_column()
+
+ensure_user_code_columns()
 
 
 def get_db() -> Generator[Session, None, None]:
@@ -76,14 +91,11 @@ def get_db() -> Generator[Session, None, None]:
 class UserUpdate(BaseModel):
     display_name: str | None = None
     birth_date: str | None = None
-    login_id: str | None = None
 
 
 class UserRegister(BaseModel):
     display_name: str
     birth_date: str | None = None
-    login_id: str
-    password: str
 
 
 class PlaySessionStart(BaseModel):
@@ -110,6 +122,10 @@ class FamilyLogin(BaseModel):
     family_code: str
 
 
+class RecoveryRequest(BaseModel):
+    recovery_code: str
+
+
 class FamilyCommentCreate(BaseModel):
     family_code: str
     author_name: str
@@ -119,6 +135,87 @@ class FamilyCommentCreate(BaseModel):
 
 
 FAMILY_CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+RECOVERY_CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+
+
+
+
+def normalize_recovery_code(value: str) -> str:
+    return (
+        value.strip()
+        .replace("-", "")
+        .replace(" ", "")
+        .upper()
+    )
+
+
+def format_recovery_code(value: str) -> str:
+    normalized = normalize_recovery_code(value)
+
+    if len(normalized) == 10:
+        return (
+            f"{normalized[:5]}-"
+            f"{normalized[5:]}"
+        )
+
+    return normalized
+
+
+def generate_unique_recovery_code(
+    db: Session,
+    length: int = 10,
+) -> str:
+    for _ in range(100):
+        code = "".join(
+            choice(RECOVERY_CODE_ALPHABET)
+            for _ in range(length)
+        )
+
+        duplicate = (
+            db.query(User)
+            .filter(User.recovery_code == code)
+            .first()
+        )
+
+        if duplicate is None:
+            return code
+
+    raise HTTPException(
+        status_code=500,
+        detail="復元コードを発行できませんでした",
+    )
+
+
+def get_user_by_recovery_code(
+    recovery_code: str,
+    db: Session,
+) -> User:
+    normalized_code = normalize_recovery_code(
+        recovery_code
+    )
+
+    if len(normalized_code) != 10:
+        raise HTTPException(
+            status_code=400,
+            detail="復元コードは10文字で入力してください",
+        )
+
+    user = (
+        db.query(User)
+        .filter(
+            User.recovery_code
+            == normalized_code
+        )
+        .first()
+    )
+
+    if user is None:
+        raise HTTPException(
+            status_code=404,
+            detail="復元コードが見つかりません",
+        )
+
+    return user
 
 
 def normalize_family_code(value: str) -> str:
@@ -183,18 +280,6 @@ def get_user_by_family_code(
 
     return user
 
-
-def hash_password(password: str) -> str:
-    salt = token_hex(16)
-
-    password_hash = pbkdf2_hmac(
-        "sha256",
-        password.encode("utf-8"),
-        salt.encode("utf-8"),
-        120_000,
-    ).hex()
-
-    return f"{salt}${password_hash}"
 
 
 def calculate_score(
@@ -344,6 +429,11 @@ def get_user(
         "birth_date": user.birth_date,
         "login_id": user.login_id,
         "family_code": user.family_code,
+        "recovery_code": (
+            format_recovery_code(user.recovery_code)
+            if user.recovery_code
+            else None
+        ),
         "is_guest": user.is_guest,
         "last_login_at": user.last_login_at,
         "created_at": user.created_at,
@@ -376,29 +466,6 @@ def update_user(
     if user_data.birth_date is not None:
         user.birth_date = user_data.birth_date
 
-    if user_data.login_id is not None:
-        login_id = user_data.login_id.strip()
-
-        duplicate = (
-            db.query(User)
-            .filter(
-                User.login_id == login_id,
-                User.id != user_id,
-            )
-            .first()
-        )
-
-        if duplicate is not None:
-            raise HTTPException(
-                status_code=409,
-                detail=(
-                    "このログインIDは"
-                    "すでに使用されています"
-                ),
-            )
-
-        user.login_id = login_id
-
     user.last_login_at = datetime.now()
 
     db.commit()
@@ -410,7 +477,6 @@ def update_user(
             "id": user.id,
             "display_name": user.display_name,
             "birth_date": user.birth_date,
-            "login_id": user.login_id,
             "is_guest": user.is_guest,
         },
     }
@@ -435,7 +501,6 @@ def register_user(
         )
 
     display_name = user_data.display_name.strip()
-    login_id = user_data.login_id.strip()
 
     if not display_name:
         raise HTTPException(
@@ -443,51 +508,24 @@ def register_user(
             detail="お名前を入力してください",
         )
 
-    if len(login_id) < 4:
+    if len(display_name) > 50:
         raise HTTPException(
             status_code=400,
-            detail=(
-                "ログインIDは"
-                "4文字以上で入力してください"
-            ),
-        )
-
-    if len(user_data.password) < 8:
-        raise HTTPException(
-            status_code=400,
-            detail=(
-                "パスワードは"
-                "8文字以上で入力してください"
-            ),
-        )
-
-    duplicate = (
-        db.query(User)
-        .filter(
-            User.login_id == login_id,
-            User.id != user_id,
-        )
-        .first()
-    )
-
-    if duplicate is not None:
-        raise HTTPException(
-            status_code=409,
-            detail=(
-                "このログインIDは"
-                "すでに使用されています"
-            ),
+            detail="お名前は50文字以内で入力してください",
         )
 
     user.display_name = display_name
     user.birth_date = user_data.birth_date or None
-    user.login_id = login_id
-    user.password_hash = hash_password(
-        user_data.password
-    )
+
+    # 旧方式で保存済みの認証情報があっても使用しない
+    user.login_id = None
+    user.password_hash = None
 
     if not user.family_code:
         user.family_code = generate_unique_family_code(db)
+
+    if not user.recovery_code:
+        user.recovery_code = generate_unique_recovery_code(db)
 
     user.is_guest = False
     user.last_login_at = datetime.now()
@@ -501,8 +539,135 @@ def register_user(
             "id": user.id,
             "display_name": user.display_name,
             "birth_date": user.birth_date,
-            "login_id": user.login_id,
             "family_code": user.family_code,
+            "recovery_code": format_recovery_code(
+                user.recovery_code
+            ),
+            "is_guest": user.is_guest,
+        },
+    }
+
+
+@app.get("/users/{user_id}/recovery-code")
+def get_recovery_code(
+    user_id: int,
+    db: Session = Depends(get_db),
+):
+    user = (
+        db.query(User)
+        .filter(User.id == user_id)
+        .first()
+    )
+
+    if user is None:
+        raise HTTPException(
+            status_code=404,
+            detail="ユーザーが見つかりません",
+        )
+
+    if user.is_guest:
+        raise HTTPException(
+            status_code=403,
+            detail="ユーザー登録後に復元コードを利用できます",
+        )
+
+    if not user.recovery_code:
+        user.recovery_code = (
+            generate_unique_recovery_code(db)
+        )
+
+        db.commit()
+        db.refresh(user)
+
+    return {
+        "user_id": user.id,
+        "display_name": user.display_name,
+        "recovery_code": format_recovery_code(
+            user.recovery_code
+        ),
+    }
+
+
+@app.post("/users/{user_id}/recovery-code")
+def issue_recovery_code(
+    user_id: int,
+    regenerate: bool = False,
+    db: Session = Depends(get_db),
+):
+    user = (
+        db.query(User)
+        .filter(User.id == user_id)
+        .first()
+    )
+
+    if user is None:
+        raise HTTPException(
+            status_code=404,
+            detail="ユーザーが見つかりません",
+        )
+
+    if user.is_guest:
+        raise HTTPException(
+            status_code=403,
+            detail="ユーザー登録後に復元コードを発行できます",
+        )
+
+    if user.recovery_code and not regenerate:
+        return {
+            "message": "発行済みの復元コードです",
+            "user_id": user.id,
+            "recovery_code": format_recovery_code(
+                user.recovery_code
+            ),
+        }
+
+    user.recovery_code = (
+        generate_unique_recovery_code(db)
+    )
+
+    db.commit()
+    db.refresh(user)
+
+    return {
+        "message": (
+            "復元コードを再発行しました"
+            if regenerate
+            else "復元コードを発行しました"
+        ),
+        "user_id": user.id,
+        "recovery_code": format_recovery_code(
+            user.recovery_code
+        ),
+    }
+
+
+@app.post("/users/recover")
+def recover_user(
+    data: RecoveryRequest,
+    db: Session = Depends(get_db),
+):
+    user = get_user_by_recovery_code(
+        data.recovery_code,
+        db,
+    )
+
+    user.last_login_at = datetime.now()
+
+    db.commit()
+    db.refresh(user)
+
+    return {
+        "message": "記録をこの端末に復元しました",
+        "user": {
+            "id": user.id,
+            "display_name": (
+                user.display_name or "利用者"
+            ),
+            "birth_date": user.birth_date,
+            "family_code": user.family_code,
+            "recovery_code": format_recovery_code(
+                user.recovery_code
+            ),
             "is_guest": user.is_guest,
         },
     }

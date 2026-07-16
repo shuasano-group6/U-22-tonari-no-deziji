@@ -39,6 +39,47 @@
                 </h1>
             </div>
 
+            <!-- =========================
+                 成長お知らせバー
+            ========================== -->
+            <section
+                id="homeDashboard"
+                class="homeDashboard"
+                aria-live="polite"
+            >
+                <button
+                    type="button"
+                    class="dashboardNoticeButton"
+                    onclick="openReflection()"
+                    aria-label="成長記録の詳細を見る"
+                >
+                    <span
+                        class="dashboardNoticeIcon"
+                        aria-hidden="true"
+                    >
+                        🌱
+                    </span>
+
+                    <span class="dashboardNoticeViewport">
+                        <span
+                            id="dashboardMessage"
+                            class="dashboardNoticeText"
+                        >
+                            記録を確認しています…
+                        </span>
+                    </span>
+
+                    <span
+                        class="dashboardNoticeArrow"
+                        aria-hidden="true"
+                    >
+                        ＞
+                    </span>
+                </button>
+            </section>
+
+
+
             <div class="buttons">
 
                 <button
@@ -62,7 +103,7 @@
                     class="homeButton button-3"
                     onclick="openSettings()"
                 >
-                    設定
+                    もっと便利に
                 </button>
 
                 <button

@@ -2,20 +2,37 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
 body {
     margin: 0;
+
     padding:
         max(20px, env(safe-area-inset-top))
-        max(16px, env(safe-area-inset-right))
-        max(24px, env(safe-area-inset-bottom))
-        max(16px, env(safe-area-inset-left));
+        max(14px, env(safe-area-inset-right))
+        max(28px, env(safe-area-inset-bottom))
+        max(14px, env(safe-area-inset-left));
 
-    background: linear-gradient(180deg, #ffe8c4, #ffd59a);
+    background:
+        linear-gradient(
+            180deg,
+            #fff0d7 0%,
+            #ffd99f 100%
+        );
+
     color: #4f3825;
 
     font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI",
-        "Yu Gothic", "Meiryo", sans-serif;
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
 }
 
 button,
@@ -23,152 +40,457 @@ input {
     font-family: inherit;
 }
 
+.hidden {
+    display: none !important;
+}
+
 .settingsPage {
-    width: min(92vw, 720px);
+    width: min(94vw, 820px);
+
     margin: 0 auto;
 }
 
 .settingsHeader {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+
     text-align: center;
 }
 
-.settingsHeader h1 {
-    margin: 0 0 8px;
-    color: #6e4c2e;
-    font-size: clamp(2rem, 8vw, 3.4rem);
+.settingsOwl {
+    margin-bottom: 6px;
+
+    font-size:
+        clamp(3.5rem, 14vw, 6rem);
 }
 
-.settingsHeader p {
+.settingsEyebrow,
+.benefitsEyebrow,
+.registerEyebrow {
+    margin: 0 0 6px;
+
+    color: #9a65bb;
+
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+}
+
+.settingsHeader h1 {
     margin: 0;
-    font-size: clamp(1rem, 4vw, 1.4rem);
-    font-weight: 600;
-    line-height: 1.6;
+
+    color: #6e4c2e;
+
+    font-size:
+        clamp(2.2rem, 8vw, 3.8rem);
+}
+
+.settingsLead {
+    max-width: 680px;
+
+    margin: 12px auto 0;
+
+    color: #625044;
+
+    font-size:
+        clamp(1rem, 4vw, 1.3rem);
+
+    font-weight: 650;
+    line-height: 1.75;
 }
 
 .userCard,
-.registerCard {
+.benefitsCard,
+.familyCodeNotice,
+.inheritanceNotice,
+.registerCard,
+.registrationCompleteCard,
+.familyCodeCard {
     margin-bottom: 20px;
-    padding: clamp(18px, 5vw, 32px);
-    border: 4px solid #f6b52c;
+
+    padding:
+        clamp(18px, 5vw, 32px);
+
     border-radius: 24px;
+
     background: #ffffff;
-    box-shadow: 0 6px 16px rgba(91, 59, 28, 0.16);
+
+    box-shadow:
+        0 7px 20px
+        rgba(91, 59, 28, 0.14);
 }
 
 .userCard {
+    border:
+        4px solid #f6b52c;
+
     text-align: center;
 }
 
 .userCard p {
     margin: 0;
-    font-size: clamp(1.05rem, 4.2vw, 1.45rem);
-    font-weight: 700;
-    line-height: 1.6;
+
+    font-size:
+        clamp(1.05rem, 4.2vw, 1.45rem);
+
+    font-weight: 750;
+    line-height: 1.65;
 }
 
-.registerCard h2 {
-    margin: 0 0 24px;
+.benefitsCard {
+    border:
+        4px solid #9c78cf;
+}
+
+.benefitsHeading {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 22px;
+}
+
+.benefitsIcon {
+    font-size:
+        clamp(2.8rem, 10vw, 4.5rem);
+}
+
+.benefitsHeading h2 {
+    margin: 0;
+
+    color: #7652a6;
+
+    font-size:
+        clamp(1.6rem, 6vw, 2.5rem);
+}
+
+.benefitsGrid {
+    display: grid;
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
+}
+
+.benefitItem {
+    padding: 18px;
+
+    border-radius: 18px;
+
+    background: #fff9ef;
+}
+
+.familyBenefit {
+    background: #f5efff;
+}
+
+.benefitEmoji {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 2.5rem;
+}
+
+.benefitItem h3 {
+    margin: 0 0 10px;
+
+    color: #765132;
+
+    font-size: 1.2rem;
+}
+
+.benefitItem ul {
+    margin: 0;
+    padding-left: 1.25em;
+
+    line-height: 1.8;
+}
+
+.familyCodeNotice {
+    display: flex;
+    align-items: center;
+
+    border:
+        4px solid #9c78cf;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffdf8,
+            #f4ecff
+        );
+}
+
+.noticeIcon {
+    margin-right: 18px;
+
+    font-size:
+        clamp(3rem, 11vw, 5rem);
+}
+
+.familyCodeNotice h2 {
+    margin: 0 0 8px;
+
+    color: #7652a6;
+
+    font-size:
+        clamp(1.4rem, 5vw, 2rem);
+}
+
+.familyCodeNotice p {
+    margin: 0;
+
+    line-height: 1.75;
+}
+
+.inheritanceNotice {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 12px;
+
+    border:
+        3px solid #63ac6c;
+
+    background: #effaf1;
+}
+
+.inheritanceNotice > span {
+    font-size: 1.7rem;
+}
+
+.inheritanceNotice p {
+    margin: 0;
+
+    line-height: 1.7;
+}
+
+.registerCard {
+    border:
+        4px solid #f6b52c;
+}
+
+.registerHeading {
+    margin-bottom: 24px;
+
     text-align: center;
+}
+
+.registerHeading h2 {
+    margin: 0 0 8px;
+
     color: #6e4c2e;
-    font-size: clamp(1.6rem, 6vw, 2.4rem);
+
+    font-size:
+        clamp(1.6rem, 6vw, 2.5rem);
+}
+
+.registerHeading > p:last-child {
+    margin: 0;
+
+    color: #69574a;
+
+    line-height: 1.6;
 }
 
 .formGroup {
     display: block;
+
     margin-bottom: 20px;
 }
 
-.formGroup span {
+.formGroup > span {
     display: block;
+
     margin-bottom: 8px;
-    font-size: clamp(1.1rem, 4vw, 1.4rem);
-    font-weight: 700;
+
+    font-size:
+        clamp(1.1rem, 4vw, 1.4rem);
+
+    font-weight: 750;
 }
 
 .formGroup input {
     width: 100%;
     min-height: 64px;
+
     padding: 12px 16px;
-    border: 3px solid #c79b6b;
+
+    border:
+        3px solid #c79b6b;
+
     border-radius: 14px;
+
     background: #fffdf9;
     color: #3f2e20;
-    font-size: clamp(1.1rem, 4.2vw, 1.45rem);
+
+    font-size:
+        clamp(1.1rem, 4.2vw, 1.45rem);
 }
 
 .formGroup input:focus {
     border-color: #2457d6;
-    outline: 3px solid rgba(36, 87, 214, 0.2);
+
+    outline:
+        3px solid
+        rgba(36, 87, 214, 0.2);
 }
 
 .formGroup small {
     display: block;
+
     margin-top: 6px;
+
     color: #725944;
 }
 
-.formMessage {
+.registerCodePreview {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 8px 0 20px;
+    padding: 14px 16px;
+
+    border-radius: 15px;
+
+    background: #f4edff;
+    color: #65408e;
+}
+
+.registerCodePreview > span {
+    font-size: 2rem;
+}
+
+.registerCodePreview p {
+    margin: 0;
+
+    line-height: 1.65;
+}
+
+.formMessage,
+.familyCodeMessage {
     margin: 0 0 18px;
     padding: 14px 16px;
+
     border-radius: 12px;
+
     background: #fff0ef;
     color: #9b251d;
+
     font-size: 1.05rem;
-    font-weight: 700;
+    font-weight: 750;
+    line-height: 1.5;
 }
 
-.formMessage.success {
+.formMessage.success,
+.familyCodeMessage.success {
     background: #edf9ee;
     color: #21742b;
-}
-
-.hidden {
-    display: none !important;
 }
 
 .primaryButton,
 .backButton {
     width: 100%;
     min-height: 72px;
+
     padding: 14px 20px;
+
     border-radius: 18px;
-    font-size: clamp(1.2rem, 5vw, 1.8rem);
-    font-weight: 700;
+
+    font-size:
+        clamp(1.2rem, 5vw, 1.8rem);
+
+    font-weight: 800;
+
     cursor: pointer;
 }
 
 .primaryButton {
     border: none;
-    background: linear-gradient(180deg, #ffc957, #f1a900);
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffc957 0%,
+            #f1a900 100%
+        );
+
     color: #ffffff;
 }
 
 .primaryButton:disabled {
+    cursor: default;
+
     opacity: 0.65;
 }
 
 .backButton {
-    border: 4px solid #b48455;
+    border:
+        4px solid #b48455;
+
     background: #ffffff;
     color: #8a5c32;
 }
 
+.registrationCompleteCard {
+    border:
+        4px solid #63ac6c;
 
-.familyCodeCard {
-    margin-bottom: 20px;
-    padding: clamp(18px, 5vw, 32px);
-
-    border: 4px solid #9c78cf;
-    border-radius: 24px;
-
-    background: #ffffff;
+    background:
+        linear-gradient(
+            135deg,
+            #f5fff6,
+            #e6f8e9
+        );
 
     text-align: center;
+}
 
-    box-shadow:
-        0 6px 16px
-        rgba(91, 59, 28, 0.16);
+.completeIcon {
+    margin-bottom: 8px;
+
+    font-size:
+        clamp(3rem, 12vw, 5rem);
+}
+
+.registrationCompleteCard h2 {
+    margin: 0 0 12px;
+
+    color: #34763c;
+
+    font-size:
+        clamp(1.7rem, 6vw, 2.6rem);
+}
+
+.registrationCompleteCard > p {
+    line-height: 1.7;
+}
+
+.completeCodeGuide {
+    display: grid;
+
+    gap: 8px;
+
+    margin-top: 18px;
+    padding: 16px;
+
+    border-radius: 16px;
+
+    background: #ffffff;
+}
+
+.completeCodeGuide strong {
+    color: #65408e;
+}
+
+.familyCodeCard {
+    border:
+        4px solid #9c78cf;
+
+    text-align: center;
 }
 
 .familyCodeCard h2 {
@@ -200,7 +522,7 @@ input {
 
     color: #6b5680;
 
-    font-weight: 700;
+    font-weight: 750;
 }
 
 .familyCodeDisplay strong {
@@ -230,7 +552,7 @@ input {
     border-radius: 16px;
 
     font-size: 1.05rem;
-    font-weight: 700;
+    font-weight: 750;
 
     cursor: pointer;
 }
@@ -243,13 +565,193 @@ input {
 }
 
 .regenerateCodeButton {
-    border: 3px solid #9c78cf;
+    border:
+        3px solid #9c78cf;
 
     background: #ffffff;
     color: #7652a6;
 }
 
-.familyCodeMessage {
+button:focus-visible {
+    outline:
+        5px solid #2457d6;
+
+    outline-offset: 4px;
+}
+
+@media (max-width: 760px) {
+    .benefitsGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 520px) {
+    body {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .familyCodeNotice {
+        align-items: flex-start;
+    }
+
+    .noticeIcon {
+        margin-right: 12px;
+    }
+
+    .userCard,
+    .benefitsCard,
+    .familyCodeNotice,
+    .inheritanceNotice,
+    .registerCard,
+    .registrationCompleteCard,
+    .familyCodeCard {
+        padding: 18px;
+    }
+}
+
+
+.restoreNotice,
+.recoveryCodeCard {
+    margin-bottom: 20px;
+    padding: clamp(18px, 5vw, 32px);
+
+    border-radius: 24px;
+    background: #ffffff;
+
+    box-shadow:
+        0 7px 20px
+        rgba(91, 59, 28, 0.14);
+}
+
+.restoreNotice {
+    display: flex;
+    align-items: center;
+
+    border: 4px solid #5d9fd6;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #eaf6ff
+        );
+}
+
+.restoreNoticeIcon {
+    margin-right: 18px;
+
+    font-size:
+        clamp(3rem, 11vw, 5rem);
+}
+
+.restoreNotice h2 {
+    margin: 0 0 8px;
+
+    color: #3478ad;
+
+    font-size:
+        clamp(1.4rem, 5vw, 2rem);
+}
+
+.restoreNotice p {
+    margin: 0;
+
+    line-height: 1.7;
+}
+
+.openRestoreButton {
+    min-height: 54px;
+
+    margin-top: 14px;
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 15px;
+
+    background: #5d9fd6;
+    color: #ffffff;
+
+    font-size: 1.05rem;
+    font-weight: 750;
+
+    cursor: pointer;
+}
+
+.recoveryCodeCard {
+    border: 4px solid #5d9fd6;
+
+    text-align: center;
+}
+
+.recoveryCodeCard h2 {
+    margin: 0 0 14px;
+
+    color: #3478ad;
+
+    font-size:
+        clamp(1.5rem, 6vw, 2.3rem);
+}
+
+.recoveryCodeCard > p {
+    line-height: 1.7;
+}
+
+.recoveryCodeDisplay {
+    margin: 20px auto;
+    padding: 18px;
+
+    border-radius: 18px;
+
+    background: #eaf6ff;
+}
+
+.recoveryCodeDisplay span {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #52718a;
+
+    font-weight: 750;
+}
+
+.recoveryCodeDisplay strong {
+    letter-spacing: 0.12em;
+
+    color: #2e6d9f;
+
+    font-size:
+        clamp(1.7rem, 8vw, 3.1rem);
+}
+
+.recoveryWarning {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin: 16px 0;
+    padding: 14px;
+
+    border-radius: 14px;
+
+    background: #fff4df;
+
+    text-align: left;
+}
+
+.recoveryWarning span {
+    font-size: 1.6rem;
+}
+
+.recoveryWarning p {
+    margin: 0;
+
+    line-height: 1.65;
+}
+
+.recoveryCodeMessage {
     margin: 0 0 14px;
     padding: 12px;
 
@@ -258,10 +760,57 @@ input {
     background: #fff0ef;
     color: #9b251d;
 
-    font-weight: 700;
+    font-weight: 750;
 }
 
-.familyCodeMessage.success {
+.recoveryCodeMessage.success {
     background: #edf9ee;
     color: #21742b;
+}
+
+.recoveryCodeButtons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 12px;
+}
+
+.copyRecoveryButton,
+.regenerateRecoveryButton {
+    min-width: 190px;
+    min-height: 58px;
+
+    padding: 10px 18px;
+
+    border-radius: 16px;
+
+    font-size: 1.05rem;
+    font-weight: 750;
+
+    cursor: pointer;
+}
+
+.copyRecoveryButton {
+    border: none;
+
+    background: #5d9fd6;
+    color: #ffffff;
+}
+
+.regenerateRecoveryButton {
+    border: 3px solid #5d9fd6;
+
+    background: #ffffff;
+    color: #3478ad;
+}
+
+@media (max-width: 520px) {
+    .restoreNotice {
+        align-items: flex-start;
+    }
+
+    .restoreNoticeIcon {
+        margin-right: 12px;
+    }
 }

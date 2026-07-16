@@ -1,73 +1,339 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>設定・ユーザー登録 | となりのデジジ</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <title>もっと便利に | となりのデジジ</title>
+
     <link rel="stylesheet" href="css/settings.css">
 </head>
+
 <body>
+
     <main class="settingsPage">
+
         <header class="settingsHeader">
-            <h1>設定</h1>
-            <p>ユーザー登録をすると、これまでの記録を残せます。</p>
+
+            <div
+                class="settingsOwl"
+                aria-hidden="true"
+            >
+                🦉
+            </div>
+
+            <p class="settingsEyebrow">
+                記録を残して、ご家族とつながる
+            </p>
+
+            <h1>もっと便利に</h1>
+
+            <p class="settingsLead">
+                ユーザー登録をすると、
+                ゲストで練習した記録もそのまま残り、
+                ご家族と見守りノートを共有できます。
+            </p>
+
         </header>
 
-        <section class="userCard">
-            <p id="userStatus" aria-live="polite">
+
+        <section
+            id="currentUserCard"
+            class="userCard"
+            aria-live="polite"
+        >
+            <p id="userStatus">
                 ユーザー情報を確認しています…
             </p>
         </section>
 
-        <section class="registerCard">
-            <h2>ユーザー登録</h2>
 
-            <form id="registerForm" novalidate>
-                <label class="formGroup">
-                    <span>お名前</span>
-                    <input id="displayName" type="text"
-                           maxlength="50" autocomplete="name" required>
-                </label>
+        <section
+            id="registrationBenefits"
+            class="benefitsCard"
+        >
 
-                <label class="formGroup">
-                    <span>生年月日</span>
-                    <input id="birthDate" type="date" autocomplete="bday">
-                </label>
+            <div class="benefitsHeading">
 
-                <label class="formGroup">
-                    <span>ログインID</span>
-                    <input id="loginId" type="text"
-                           minlength="4" maxlength="50"
-                           autocomplete="username" required>
-                    <small>4文字以上で入力してください。</small>
-                </label>
+                <span
+                    class="benefitsIcon"
+                    aria-hidden="true"
+                >
+                    🌱
+                </span>
 
-                <label class="formGroup">
-                    <span>パスワード</span>
-                    <input id="password" type="password"
-                           minlength="8" maxlength="100"
-                           autocomplete="new-password" required>
-                    <small>8文字以上で入力してください。</small>
-                </label>
+                <div>
+                    <p class="benefitsEyebrow">
+                        ユーザー登録すると
+                    </p>
 
-                <label class="formGroup">
-                    <span>パスワード確認</span>
-                    <input id="passwordConfirm" type="password"
-                           minlength="8" maxlength="100"
-                           autocomplete="new-password" required>
-                </label>
+                    <h2>できることが増えます</h2>
+                </div>
 
-                <p id="formMessage"
-                   class="formMessage hidden"
-                   role="alert" aria-live="polite"></p>
+            </div>
 
-                <button id="registerButton"
-                        type="submit"
-                        class="primaryButton">
-                    ユーザー登録する
+
+            <div class="benefitsGrid">
+
+                <article class="benefitItem">
+
+                    <span
+                        class="benefitEmoji"
+                        aria-hidden="true"
+                    >
+                        📈
+                    </span>
+
+                    <h3>成長を記録</h3>
+
+                    <ul>
+                        <li>過去の練習履歴を保存</li>
+                        <li>前回との比較</li>
+                        <li>上達グラフを確認</li>
+                    </ul>
+
+                </article>
+
+
+                <article class="benefitItem">
+
+                    <span
+                        class="benefitEmoji"
+                        aria-hidden="true"
+                    >
+                        🦉
+                    </span>
+
+                    <h3>デジジが応援</h3>
+
+                    <ul>
+                        <li>結果にコメント</li>
+                        <li>得意・苦手を確認</li>
+                        <li>次の練習を提案</li>
+                    </ul>
+
+                </article>
+
+
+                <article class="benefitItem familyBenefit">
+
+                    <span
+                        class="benefitEmoji"
+                        aria-hidden="true"
+                    >
+                        👨‍👩‍👧
+                    </span>
+
+                    <h3>ご家族と共有</h3>
+
+                    <ul>
+                        <li>6文字の家族コードを自動発行</li>
+                        <li>離れた場所から見守り</li>
+                        <li>家族から応援コメント</li>
+                    </ul>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <section class="familyCodeNotice">
+
+            <div
+                class="noticeIcon"
+                aria-hidden="true"
+            >
+                🔑
+            </div>
+
+            <div>
+
+                <h2>
+                    登録すると家族コードが発行されます
+                </h2>
+
+                <p>
+                    登録完了後に、6文字の家族コードを表示します。
+                    そのコードをご家族へ伝えると、
+                    ご家族の端末から見守りノートを確認できます。
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <section
+            id="restoreNotice"
+            class="restoreNotice"
+        >
+            <div class="restoreNoticeIcon">
+                🔄
+            </div>
+
+            <div>
+                <h2>以前の記録をお持ちですか？</h2>
+
+                <p>
+                    機種変更やブラウザのデータ削除後は、
+                    登録時に発行された復元コードで
+                    記録をこの端末へ戻せます。
+                </p>
+
+                <button
+                    type="button"
+                    class="openRestoreButton"
+                    onclick="location.href='recovery.html'"
+                >
+                    復元コードを入力する
                 </button>
+            </div>
+        </section>
+
+
+        <section class="inheritanceNotice">
+
+            <span aria-hidden="true">✅</span>
+
+            <p>
+                <strong>ゲストで遊んだ記録は消えません。</strong><br>
+                今使っているゲストユーザーをそのまま正式ユーザーに変更します。
+            </p>
+
+        </section>
+
+
+        <section
+            id="registerCard"
+            class="registerCard"
+        >
+
+            <div class="registerHeading">
+
+                <p class="registerEyebrow">
+                    かんたん登録
+                </p>
+
+                <h2>お名前を登録</h2>
+
+                <p>
+                    お名前と生年月日だけで登録できます。<br>
+                    パスワードを覚える必要はありません。
+                </p>
+
+            </div>
+
+
+            <form
+                id="registerForm"
+                novalidate
+            >
+
+                <label class="formGroup">
+
+                    <span>お名前</span>
+
+                    <input
+                        id="displayName"
+                        name="displayName"
+                        type="text"
+                        maxlength="50"
+                        autocomplete="name"
+                        placeholder="例：山田 花子"
+                        required
+                    >
+
+                </label>
+
+
+                <label class="formGroup">
+
+                    <span>生年月日</span>
+
+                    <input
+                        id="birthDate"
+                        name="birthDate"
+                        type="date"
+                        autocomplete="bday"
+                    >
+
+                </label>
+
+
+                <div class="registerCodePreview">
+
+                    <span aria-hidden="true">🔑</span>
+
+                    <p>
+                        この登録が完了すると、
+                        <strong>6文字の家族コード</strong>が
+                        自動で発行されます。
+                    </p>
+
+                </div>
+
+
+                <p
+                    id="formMessage"
+                    class="formMessage hidden"
+                    role="alert"
+                    aria-live="polite"
+                ></p>
+
+
+                <button
+                    id="registerButton"
+                    type="submit"
+                    class="primaryButton"
+                >
+                    🌱 ユーザー登録する
+                </button>
+
             </form>
+
+        </section>
+
+
+        <section
+            id="registrationCompleteCard"
+            class="registrationCompleteCard hidden"
+            aria-live="polite"
+        >
+
+            <div
+                class="completeIcon"
+                aria-hidden="true"
+            >
+                🎉
+            </div>
+
+            <h2>登録が完了しました！</h2>
+
+            <p>
+                これから練習結果を記録し、
+                ご家族と一緒に成長を見守れます。
+            </p>
+
+            <div class="completeCodeGuide">
+
+                <strong>
+                    下に家族コードと復元コードを表示します。
+                </strong>
+
+                <span>
+                    家族コードはご家族へ伝え、復元コードはご本人または信頼できるご家族が保管してください。
+                </span>
+
+            </div>
+
         </section>
 
 
@@ -75,6 +341,7 @@
             id="familyCodeCard"
             class="familyCodeCard hidden"
         >
+
             <h2>ご家族との連携</h2>
 
             <p>
@@ -83,8 +350,13 @@
             </p>
 
             <div class="familyCodeDisplay">
+
                 <span>家族コード</span>
-                <strong id="familyCodeValue">------</strong>
+
+                <strong id="familyCodeValue">
+                    ------
+                </strong>
+
             </div>
 
             <p
@@ -94,6 +366,7 @@
             ></p>
 
             <div class="familyCodeButtons">
+
                 <button
                     id="copyFamilyCodeButton"
                     type="button"
@@ -109,21 +382,90 @@
                 >
                     コードを再発行
                 </button>
+
             </div>
 
             <small>
                 再発行すると、以前のコードは使えなくなります。
             </small>
+
         </section>
 
-        <button type="button"
-                class="backButton"
-                onclick="location.href='index.html'">
+
+
+        <section
+            id="recoveryCodeCard"
+            class="recoveryCodeCard hidden"
+        >
+            <h2>記録を戻すための復元コード</h2>
+
+            <p>
+                機種変更やブラウザのデータ削除後に、
+                このコードを使うと同じ記録を引き継げます。
+            </p>
+
+            <div class="recoveryCodeDisplay">
+                <span>復元コード</span>
+
+                <strong id="recoveryCodeValue">
+                    ----- -----
+                </strong>
+            </div>
+
+            <div class="recoveryWarning">
+                <span>⚠️</span>
+
+                <p>
+                    このコードは他人に公開せず、
+                    ご本人または信頼できるご家族が
+                    安全な場所に保管してください。
+                </p>
+            </div>
+
+            <p
+                id="recoveryCodeMessage"
+                class="recoveryCodeMessage hidden"
+                aria-live="polite"
+            ></p>
+
+            <div class="recoveryCodeButtons">
+                <button
+                    id="copyRecoveryCodeButton"
+                    type="button"
+                    class="copyRecoveryButton"
+                >
+                    復元コードをコピー
+                </button>
+
+                <button
+                    id="regenerateRecoveryCodeButton"
+                    type="button"
+                    class="regenerateRecoveryButton"
+                >
+                    復元コードを再発行
+                </button>
+            </div>
+
+            <small>
+                再発行すると、以前の復元コードは使えなくなります。
+            </small>
+        </section>
+
+
+        <button
+            type="button"
+            class="backButton"
+            onclick="location.href='index.html'"
+        >
             スタート画面に戻る
         </button>
+
     </main>
+
 
     <script src="js/api.js"></script>
     <script src="js/settings.js"></script>
+
 </body>
+
 </html>

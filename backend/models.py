@@ -12,9 +12,11 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     display_name = Column(String, nullable=True)
     birth_date = Column(String, nullable=True)
+    # 旧バージョンとのデータベース互換用。現在の登録では使用しない。
     login_id = Column(String, nullable=True, unique=True)
     password_hash = Column(String, nullable=True)
     family_code = Column(String, nullable=True, unique=True, index=True)
+    recovery_code = Column(String, nullable=True, unique=True, index=True)
     is_guest = Column(Boolean, default=True)
     last_login_at = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.now)
