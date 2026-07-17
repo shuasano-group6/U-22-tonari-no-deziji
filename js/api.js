@@ -626,3 +626,56 @@ async function postFamilyComment({
 document.addEventListener('DOMContentLoaded', () => {
   initializeUser();
 });
+
+// =====================
+// 復元コード
+// =====================
+
+async function getCurrentUserRecoveryCode() {
+  const userId = await initializeUser();
+
+  if (userId === null) {
+    throw new Error("ユーザーを準備できませんでした");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/users/${userId}/recovery-code`
+  );
+
+  const data = await parseJsonResponse(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.detail || "復元コードを取得できませんでした"
+    );
+  }
+
+  return data;
+}
+
+async function issueCurrentUserRecoveryCode(
+  regenerate = false
+) {
+  const userId = await initializeUser();
+
+  if (userId === null) {
+    throw new Error("ユーザーを準備できませんでした");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/users/${userId}/recovery-code?regenerate=${regenerate}`,
+    {
+      method: "POST",
+    }
+  );
+
+  const data = await parseJsonResponse(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.detail || "復元コードを発行できませんでした"
+    );
+  }
+
+  return data;
+}
