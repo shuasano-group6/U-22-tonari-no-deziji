@@ -56,6 +56,70 @@ async function userExists(userId) {
   }
 }
 
+
+async function getCurrentUser() {
+  const userId = await initializeUser();
+
+  if (userId === null) {
+    return null;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/${userId}`);
+    const data = await parseJsonResponse(response);
+
+    if (!response.ok) {
+      throw new Error(
+        data.detail || 'ユーザー情報を取得できませんでした'
+      );
+    }
+
+    return data;
+  } catch (error) {
+    console.error('ユーザー情報取得エラー:', error);
+    return null;
+  }
+}
+
+async function registerCurrentUser({
+  displayName,
+  birthDate,
+  loginId,
+  password,
+}) {
+  const userId = await initializeUser();
+
+  if (userId === null) {
+    throw new Error('ユーザーを準備できませんでした');
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/users/${userId}/register`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        display_name: displayName,
+        birth_date: birthDate || null,
+        login_id: loginId,
+        password,
+      }),
+    }
+  );
+
+  const data = await parseJsonResponse(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.detail || 'ユーザー登録に失敗しました'
+    );
+  }
+
+  return data;
+}
+
 async function createGuestUser() {
   try {
     const response = await fetch(`${API_BASE_URL}/users/guest`, {
@@ -304,6 +368,314 @@ function getLastResult() {
   }
 }
 
+
+async function getPlaySessionComments(playSessionId) {
+  const response = await fetch(
+    `${API_BASE_URL}/play-sessions/${playSessionId}/comments`
+  );
+
+  const data = await parseJsonResponse(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.detail || 'コメントを取得できませんでした'
+    );
+  }
+
+  return data.comments || [];
+}
+
+async function postPlaySessionComment({
+  playSessionId,
+  authorType,
+  authorName = '',
+  content,
+}) {
+  const response = await fetch(
+    `${API_BASE_URL}/play-sessions/${playSessionId}/comments`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        author_type: authorType,
+        author_name: authorName || null,
+        content,
+      }),
+    }
+  );
+
+  const data = await parseJsonResponse(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.detail || 'コメントを保存できませんでした'
+    );
+  }
+
+  return data;
+}
+
+
+async function getFamilyReport() {
+  const userId = await initializeUser();
+
+  if (userId === null) {
+    throw new Error(
+      'ユーザーを準備できませんでした'
+    );
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/users/${userId}/family-report`
+  );
+
+  const data = await parseJsonResponse(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.detail
+      || '見守りノートを取得できませんでした'
+    );
+  }
+
+  return data;
+}
+
+
+const FAMILY_CODE_STORAGE_KEY = 'deziji_family_code';
+
+function getStoredFamilyCode() {
+  const value = localStorage.getItem(
+    FAMILY_CODE_STORAGE_KEY
+  );
+
+  return value
+    ? String(value).trim().toUpperCase()
+    : null;
+}
+
+function saveFamilyCode(familyCode) {
+  localStorage.setItem(
+    FAMILY_CODE_STORAGE_KEY,
+    String(familyCode).trim().toUpperCase()
+  );
+}
+
+function clearFamilyCode() {
+  localStorage.removeItem(
+    FAMILY_CODE_STORAGE_KEY
+  );
+}
+
+async function getCurrentUserFamilyCode() {
+  const userId = await initializeUser();
+
+  if (userId === null) {
+    throw new Error(
+      'ユーザーを準備できませんでした'
+    );
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/users/${userId}/family-code`
+  );
+
+  const data = await parseJsonResponse(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.detail
+      || '家族コードを取得できませんでした'
+    );
+  }
+
+  return data;
+}
+
+async function issueCurrentUserFamilyCode(
+  regenerate = false
+) {
+  const userId = await initializeUser();
+
+  if (userId === null) {
+    throw new Error(
+      'ユーザーを準備できませんでした'
+    );
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/users/${userId}/family-code`
+    + `?regenerate=${regenerate}`,
+    {
+      method: 'POST',
+    }
+  );
+
+  const data = await parseJsonResponse(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.detail
+      || '家族コードを発行できませんでした'
+    );
+  }
+
+  return data;
+}
+
+async function verifyFamilyCode(familyCode) {
+  const response = await fetch(
+    `${API_BASE_URL}/family/login`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        family_code: familyCode,
+      }),
+    }
+  );
+
+  const data = await parseJsonResponse(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.detail
+      || '家族コードを確認できませんでした'
+    );
+  }
+
+  saveFamilyCode(data.family_code);
+
+  return data;
+}
+
+async function getFamilyReportByCode(
+  familyCode = getStoredFamilyCode()
+) {
+  if (!familyCode) {
+    throw new Error(
+      '家族コードを入力してください'
+    );
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/family/report`
+    + `?family_code=${encodeURIComponent(familyCode)}`
+  );
+
+  const data = await parseJsonResponse(response);
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      clearFamilyCode();
+    }
+
+    throw new Error(
+      data.detail
+      || '見守りノートを取得できませんでした'
+    );
+  }
+
+  return data;
+}
+
+async function postFamilyComment({
+  playSessionId,
+  familyCode = getStoredFamilyCode(),
+  authorName,
+  content,
+}) {
+  if (!familyCode) {
+    throw new Error(
+      '家族コードを入力してください'
+    );
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/family/play-sessions/`
+    + `${playSessionId}/comments`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        family_code: familyCode,
+        author_name: authorName,
+        content,
+      }),
+    }
+  );
+
+  const data = await parseJsonResponse(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.detail
+      || '家族コメントを保存できませんでした'
+    );
+  }
+
+  return data;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initializeUser();
 });
+
+// =====================
+// 復元コード
+// =====================
+
+async function getCurrentUserRecoveryCode() {
+  const userId = await initializeUser();
+
+  if (userId === null) {
+    throw new Error("ユーザーを準備できませんでした");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/users/${userId}/recovery-code`
+  );
+
+  const data = await parseJsonResponse(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.detail || "復元コードを取得できませんでした"
+    );
+  }
+
+  return data;
+}
+
+async function issueCurrentUserRecoveryCode(
+  regenerate = false
+) {
+  const userId = await initializeUser();
+
+  if (userId === null) {
+    throw new Error("ユーザーを準備できませんでした");
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/users/${userId}/recovery-code?regenerate=${regenerate}`,
+    {
+      method: "POST",
+    }
+  );
+
+  const data = await parseJsonResponse(response);
+
+  if (!response.ok) {
+    throw new Error(
+      data.detail || "復元コードを発行できませんでした"
+    );
+  }
+
+  return data;
+}

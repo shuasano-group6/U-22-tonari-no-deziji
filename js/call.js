@@ -231,23 +231,21 @@ async function callFinish() {
         showCallScreen('callFinish');
     };
 
-    if (!canPlaySuccessEffect()) {
+    // ここから最後だけクリア演出
+    if (!canPlayClearEffect()) {
         console.warn(
-            'playSectionSuccessが読み込まれていないため、演出を省略します。'
+            'playScenarioClearが読み込まれていないため、演出を省略します。'
         );
 
         showFinishScreen();
         return;
     }
 
-    playSectionSuccess({
-        message: '電話をかけられました！',
-        subMessage:
-            '正しく電話アイコンを押すことができました！',
-
+    playScenarioClear({
+        message: 'シナリオクリア！',
+        subMessage: '安全に電話をかけることができました！',
         onComplete: showFinishScreen,
     });
-    
 }
 
 

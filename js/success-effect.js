@@ -413,7 +413,7 @@ function playScenarioClear({
         videoSrc:
             'videos/owl-clear.mp4',
         soundSrc:
-            'audio/success.mp3',
+            'audio/clear.mp3',
         fallbackDuration: 10000,
         showSkipButton: true,
         videoMuted: true,

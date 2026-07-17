@@ -59,3 +59,16 @@ async function loadReflection() {
 }
 
 document.addEventListener('DOMContentLoaded', loadReflection);
+
+
+function openScenarioDetail(scenarioId) {
+  location.href =
+    `reflection-detail.html?scenario=${scenarioId}`;
+}
+
+function handleScenarioKey(event, scenarioId) {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    openScenarioDetail(scenarioId);
+  }
+}

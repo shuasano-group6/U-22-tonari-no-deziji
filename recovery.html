@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <title>記録を復元 | となりのデジジ</title>
+
+    <link rel="stylesheet" href="css/recovery.css">
+</head>
+
+<body>
+
+    <main class="recoveryPage">
+
+        <header class="recoveryHeader">
+
+            <div class="recoveryOwl">
+                🦉
+            </div>
+
+            <p class="recoveryEyebrow">
+                機種変更・データ削除後
+            </p>
+
+            <h1>記録を復元</h1>
+
+            <p>
+                ユーザー登録時に発行された
+                10文字の復元コードを入力してください。
+            </p>
+
+        </header>
+
+
+        <section class="recoveryCard">
+
+            <div class="recoveryExplanation">
+
+                <span>🔄</span>
+
+                <p>
+                    復元すると、この端末で
+                    過去の練習履歴・グラフ・コメントを
+                    続きから確認できます。
+                </p>
+
+            </div>
+
+
+            <form
+                id="recoveryForm"
+                novalidate
+            >
+
+                <label for="recoveryCodeInput">
+                    復元コード
+                </label>
+
+                <input
+                    id="recoveryCodeInput"
+                    type="text"
+                    maxlength="11"
+                    autocomplete="one-time-code"
+                    placeholder="例：ABCDE-23456"
+                    required
+                >
+
+                <small>
+                    ハイフンは入力してもしなくても大丈夫です。
+                </small>
+
+
+                <p
+                    id="recoveryMessage"
+                    class="recoveryMessage hidden"
+                    role="alert"
+                    aria-live="polite"
+                ></p>
+
+
+                <button
+                    id="recoveryButton"
+                    type="submit"
+                    class="recoveryButton"
+                >
+                    この端末に記録を戻す
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <section
+            id="recoveryComplete"
+            class="recoveryComplete hidden"
+            aria-live="polite"
+        >
+
+            <div class="completeIcon">
+                🎉
+            </div>
+
+            <h2>記録を復元しました！</h2>
+
+            <p id="recoveredUserName">
+                利用者の記録をこの端末に戻しました。
+            </p>
+
+            <button
+                type="button"
+                class="goHomeButton"
+                onclick="location.href='index.html'"
+            >
+                スタート画面へ
+            </button>
+
+        </section>
+
+
+        <button
+            type="button"
+            class="backButton"
+            onclick="location.href='settings.html'"
+        >
+            もっと便利に戻る
+        </button>
+
+    </main>
+
+
+    <script src="js/api.js"></script>
+    <script src="js/recovery.js"></script>
+
+</body>
+
+</html>

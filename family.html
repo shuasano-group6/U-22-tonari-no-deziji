@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <title>見守りノート | となりのデジジ</title>
+
+    <link rel="stylesheet" href="css/family.css">
+</head>
+
+<body>
+
+    <main class="family-page">
+
+        <header class="family-header">
+            <p class="family-eyebrow">ご家族へ</p>
+            <h1>🦉 見守りノート</h1>
+
+            <p
+                id="familyGreeting"
+                class="family-greeting"
+            >
+                家族コードを入力してください。
+            </p>
+        </header>
+
+
+        <section
+            id="familyLoginArea"
+            class="family-login-card"
+        >
+            <h2>家族コードでつながる</h2>
+
+            <p>
+                利用者の設定画面に表示される
+                6文字の家族コードを入力してください。
+            </p>
+
+            <form id="familyLoginForm">
+                <label for="familyCodeInput">
+                    家族コード
+                </label>
+
+                <input
+                    id="familyCodeInput"
+                    type="text"
+                    maxlength="6"
+                    autocomplete="one-time-code"
+                    placeholder="例：A7K9P2"
+                    required
+                >
+
+                <p
+                    id="familyLoginMessage"
+                    class="form-message hidden"
+                    role="alert"
+                ></p>
+
+                <button
+                    id="familyLoginButton"
+                    type="submit"
+                    class="family-login-button"
+                >
+                    見守りノートを見る
+                </button>
+            </form>
+        </section>
+
+
+        <section
+            id="loadingArea"
+            class="loading-card hidden"
+        >
+            記録を確認しています…
+        </section>
+
+
+        <section
+            id="familyContent"
+            class="hidden"
+        >
+
+            <div class="connected-bar">
+                <span id="connectedUserName">
+                    利用者と接続中
+                </span>
+
+                <button
+                    id="disconnectFamilyButton"
+                    type="button"
+                >
+                    別のコードを入力
+                </button>
+            </div>
+
+
+            <section class="hero-grid">
+
+                <article class="hero-card weekly-card">
+                    <span class="card-icon">😊</span>
+
+                    <div>
+                        <p class="card-label">
+                            今週のようす
+                        </p>
+
+                        <strong id="weekCount">0回</strong>
+
+                        <p id="weekDetail">
+                            まだ練習記録はありません
+                        </p>
+                    </div>
+                </article>
+
+
+                <article class="hero-card growth-card">
+                    <span class="card-icon">📈</span>
+
+                    <div>
+                        <p class="card-label">
+                            最近の上達
+                        </p>
+
+                        <strong id="growthValue">-</strong>
+
+                        <p id="growthDetail">
+                            比較できる記録を確認しています
+                        </p>
+                    </div>
+                </article>
+
+            </section>
+
+
+            <section class="family-panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="panel-kicker">
+                            シナリオごとの様子
+                        </p>
+
+                        <h2>練習状況</h2>
+                    </div>
+                </div>
+
+                <div
+                    id="scenarioSummary"
+                    class="scenario-summary"
+                ></div>
+            </section>
+
+
+            <section class="family-panel skills-panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="panel-kicker">
+                            操作ごとの結果
+                        </p>
+
+                        <h2>得意なこと・次の練習</h2>
+                    </div>
+                </div>
+
+                <div class="skill-grid">
+
+                    <article class="skill-card strong-skill">
+                        <span>💪 得意</span>
+                        <strong id="strongSkill">
+                            まだ記録がありません
+                        </strong>
+                        <p id="strongSkillDetail">
+                            練習すると表示されます
+                        </p>
+                    </article>
+
+                    <article class="skill-card weak-skill">
+                        <span>🌱 次の練習</span>
+                        <strong id="weakSkill">
+                            まだ記録がありません
+                        </strong>
+                        <p id="weakSkillDetail">
+                            練習すると表示されます
+                        </p>
+                    </article>
+
+                </div>
+            </section>
+
+
+            <section
+                id="familyCommentPanel"
+                class="family-panel hidden"
+            >
+                <div class="panel-heading">
+                    <div>
+                        <p class="panel-kicker">
+                            最新の結果へ
+                        </p>
+
+                        <h2>応援コメントを送る</h2>
+                    </div>
+                </div>
+
+                <p id="commentTargetText"></p>
+
+                <form id="familyCommentForm">
+                    <label>
+                        お名前・続柄
+                        <input
+                            id="familyAuthorName"
+                            type="text"
+                            maxlength="30"
+                            placeholder="例：娘、孫の〇〇"
+                            required
+                        >
+                    </label>
+
+                    <label>
+                        コメント
+                        <textarea
+                            id="familyCommentContent"
+                            maxlength="300"
+                            placeholder="すごいね！ また一緒に練習しようね"
+                            required
+                        ></textarea>
+                    </label>
+
+                    <p
+                        id="familyCommentMessage"
+                        class="form-message hidden"
+                        role="alert"
+                    ></p>
+
+                    <button
+                        id="familyCommentButton"
+                        type="submit"
+                        class="family-comment-button"
+                    >
+                        コメントを送る
+                    </button>
+                </form>
+            </section>
+
+
+            <section class="family-panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="panel-kicker">
+                            最近できたこと
+                        </p>
+
+                        <h2>成長のしるし</h2>
+                    </div>
+                </div>
+
+                <div
+                    id="achievementList"
+                    class="achievement-list"
+                ></div>
+            </section>
+
+
+            <section class="family-panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="panel-kicker">
+                            本人・家族・デジジ
+                        </p>
+
+                        <h2>コメント日記</h2>
+                    </div>
+                </div>
+
+                <div
+                    id="timelineList"
+                    class="timeline-list"
+                ></div>
+            </section>
+
+
+            <section class="family-message-card">
+                <span class="message-owl">🦉</span>
+
+                <div>
+                    <p class="message-label">
+                        ご家族へのおすすめ
+                    </p>
+
+                    <p id="familyMessage">
+                        今日できたことを
+                        一緒に喜んでみましょう。
+                    </p>
+                </div>
+            </section>
+
+        </section>
+
+
+        <div class="family-buttons">
+            <button
+                type="button"
+                class="home-button"
+                onclick="location.href='index.html'"
+            >
+                ホームに戻る
+            </button>
+        </div>
+
+    </main>
+
+
+    <script src="js/api.js"></script>
+    <script src="js/family.js"></script>
+
+</body>
+</html>

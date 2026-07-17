@@ -289,34 +289,32 @@ button:focus-visible,
 
 .micBtn {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    gap: 3px;
+    gap: 12px;
 
-    width: clamp(105px, 24vw, 135px);
-    height: clamp(105px, 24vw, 135px);
+    width: min(90vw, 420px);
+    height: 95px;
 
     margin: 0 auto;
 
     border: none;
-    border-radius: 50%;
+    border-radius: 24px;
 
-    background:
-        linear-gradient(
-            180deg,
-            #ffc957 0%,
-            #f1a900 100%
-        );
+    background: linear-gradient(
+        180deg,
+        #ffc957 0%,
+        #f1a900 100%
+    );
 
     color: #ffffff;
 
     cursor: pointer;
 
     box-shadow:
-        inset 8px 15px 25px rgba(255, 255, 255, 0.45),
-        0 5px 10px rgba(0, 0, 0, 0.22);
+        inset 8px 15px 25px rgba(255,255,255,.45),
+        0 5px 10px rgba(0,0,0,.22);
 
     -webkit-tap-highlight-color: transparent;
 }
@@ -335,14 +333,14 @@ button:focus-visible,
 }
 
 .micIcon {
-    font-size: clamp(2rem, 7vw, 3rem);
+    font-size: 42px;
     line-height: 1;
 }
 
 .micText {
-    font-size: clamp(0.8rem, 3.3vw, 1.1rem);
+    font-size: 32px;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1;
 }
 
 @keyframes listeningPulse {
@@ -592,7 +590,7 @@ button:focus-visible,
 .returnIcon {
     display: block;
 
-    width: clamp(85px, 20vw, 155px);
+    width: clamp(130px, 28vw, 220px);
     height: auto;
 }
 
@@ -702,10 +700,19 @@ button:focus-visible,
         padding-top: 72px;
     }
 
-    .micBtn {
-        width: 90px;
-        height: 90px;
-    }
+
+.micBtn:active {
+    transform: scale(0.96);
+}
+
+.micBtn.listening {
+    animation: listeningPulse 1.1s ease-in-out infinite;
+}
+
+.micBtn:disabled {
+    cursor: default;
+    opacity: 0.8;
+}
 
     .voiceResult {
         top: 172px;
@@ -727,5 +734,256 @@ button:focus-visible,
 
     .returnIcon {
         width: 78px;
+    }
+}
+
+/* =========================
+   見守りノートボタン
+========================= */
+
+.button-4 {
+    min-height: clamp(70px, 12vw, 130px);
+
+    border-width: clamp(3px, 1vw, 8px);
+    border-color: #9c78cf;
+
+    color: #7652a6;
+}
+
+.button-4::after {
+    border-width: clamp(3px, 1vw, 8px);
+    border-color: #9c78cf;
+}
+
+@media (max-height: 900px) {
+    .home-screen .owl img {
+        top: 21%;
+        width: min(46vw, 250px);
+    }
+
+    .home-screen .buttons {
+        top: 48%;
+        gap: 10px;
+    }
+
+    .home-screen .homeButton {
+        min-height: 62px;
+        padding: 0.55em 1.4em;
+        font-size: clamp(1.1rem, 4.5vw, 2.2rem);
+    }
+}
+
+/* =========================
+   成長お知らせバー
+========================= */
+
+.homeDashboard {
+    position: absolute;
+
+    top: 1.5%;
+    left: 50%;
+
+    z-index: 5;
+
+    width: min(92vw, 680px);
+
+    transform:
+        translate(-50%, -140%);
+
+    animation:
+        dashboardSlideIn
+        0.8s
+        cubic-bezier(.2, .8, .25, 1)
+        0.25s
+        forwards;
+}
+
+.dashboardNoticeButton {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-height:
+        clamp(36px, 6vw, 48px);
+
+    padding:
+        5px
+        clamp(9px, 2vw, 15px);
+
+    overflow: hidden;
+
+    border:
+        clamp(2px, 0.4vw, 3px)
+        solid #63ac6c;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255, 255, 255, 0.96);
+
+    color: #594331;
+
+    box-shadow:
+        0 5px 13px
+        rgba(75, 49, 25, 0.14);
+
+    cursor: pointer;
+
+    -webkit-tap-highlight-color:
+        transparent;
+}
+
+.dashboardNoticeIcon {
+    flex-shrink: 0;
+
+    margin-right:
+        clamp(6px, 1.5vw, 10px);
+
+    font-size:
+        clamp(1rem, 3.5vw, 1.4rem);
+}
+
+.dashboardNoticeViewport {
+    position: relative;
+
+    flex: 1;
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+}
+
+.dashboardNoticeText {
+    display: inline-block;
+
+    min-width: max-content;
+
+    padding-left: 100%;
+
+    color: #574332;
+
+    font-size:
+        clamp(0.72rem, 2.5vw, 1rem);
+
+    font-weight: 800;
+}
+
+.dashboardNoticeTextRunning {
+    animation:
+        dashboardTicker
+        13s
+        linear
+        0.8s
+        infinite;
+}
+
+.dashboardNoticeArrow {
+    flex-shrink: 0;
+
+    margin-left:
+        clamp(6px, 1.5vw, 10px);
+
+    color: #43844b;
+
+    font-size:
+        clamp(0.85rem, 2.8vw, 1.1rem);
+
+    font-weight: 900;
+}
+
+.homeDashboard.dashboardError
+.dashboardNoticeButton {
+    border-color: #d47b70;
+
+    background:
+        rgba(255, 242, 240, 0.97);
+}
+
+.dashboardNoticeButton:active {
+    transform: scale(0.985);
+}
+
+.dashboardNoticeButton:focus-visible {
+    outline:
+        4px solid #2457d6;
+
+    outline-offset: 3px;
+}
+
+@keyframes dashboardSlideIn {
+    from {
+        transform:
+            translate(-50%, -140%);
+
+        opacity: 0;
+    }
+
+    to {
+        transform:
+            translate(-50%, 0);
+
+        opacity: 1;
+    }
+}
+
+@keyframes dashboardTicker {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/*
+ * お知らせバーはタイトルより上に配置するため、
+ * ホームの元レイアウトを変更しない。
+ */
+@media (max-width: 540px) {
+    .homeDashboard {
+        top: 1%;
+
+        width: 94vw;
+    }
+
+    .dashboardNoticeButton {
+        min-height: 38px;
+
+        padding:
+            4px 9px;
+    }
+
+    .dashboardNoticeTextRunning {
+        animation-duration: 11s;
+    }
+}
+
+@media (max-height: 700px) {
+    .homeDashboard {
+        top: 0.6%;
+    }
+
+    .dashboardNoticeButton {
+        min-height: 34px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .homeDashboard {
+        transform:
+            translate(-50%, 0);
+
+        animation: none;
+    }
+
+    .dashboardNoticeText {
+        padding-left: 0;
+    }
+
+    .dashboardNoticeTextRunning {
+        animation: none;
     }
 }

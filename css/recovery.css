@@ -1,0 +1,259 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+
+    padding:
+        max(20px, env(safe-area-inset-top))
+        max(14px, env(safe-area-inset-right))
+        max(28px, env(safe-area-inset-bottom))
+        max(14px, env(safe-area-inset-left));
+
+    background:
+        linear-gradient(
+            180deg,
+            #eef8ff 0%,
+            #d9eeff 100%
+        );
+
+    color: #3f5363;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.recoveryPage {
+    width: min(94vw, 680px);
+
+    margin: 0 auto;
+}
+
+.recoveryHeader {
+    margin-bottom: 22px;
+
+    text-align: center;
+}
+
+.recoveryOwl {
+    font-size:
+        clamp(3.5rem, 14vw, 6rem);
+}
+
+.recoveryEyebrow {
+    margin: 0 0 6px;
+
+    color: #4184b8;
+
+    font-weight: 800;
+    letter-spacing: 0.07em;
+}
+
+.recoveryHeader h1 {
+    margin: 0;
+
+    color: #3478ad;
+
+    font-size:
+        clamp(2.2rem, 8vw, 3.8rem);
+}
+
+.recoveryHeader > p:last-child {
+    margin: 12px 0 0;
+
+    font-size:
+        clamp(1rem, 4vw, 1.3rem);
+
+    font-weight: 650;
+    line-height: 1.7;
+}
+
+.recoveryCard,
+.recoveryComplete {
+    padding:
+        clamp(20px, 5vw, 34px);
+
+    border: 4px solid #5d9fd6;
+    border-radius: 26px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 8px 24px
+        rgba(46, 93, 128, 0.15);
+}
+
+.recoveryExplanation {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 24px;
+    padding: 14px;
+
+    border-radius: 16px;
+
+    background: #eaf6ff;
+}
+
+.recoveryExplanation span {
+    font-size: 2.5rem;
+}
+
+.recoveryExplanation p {
+    margin: 0;
+
+    line-height: 1.7;
+}
+
+#recoveryForm label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+#recoveryCodeInput {
+    width: 100%;
+    min-height: 74px;
+
+    padding: 12px;
+
+    border: 4px solid #5d9fd6;
+    border-radius: 18px;
+
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+
+    font-size:
+        clamp(1.35rem, 7vw, 2.4rem);
+
+    font-weight: 800;
+}
+
+#recoveryCodeInput:focus {
+    outline:
+        4px solid
+        rgba(36, 87, 214, 0.2);
+}
+
+#recoveryForm small {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #60798d;
+}
+
+.recoveryMessage {
+    margin: 16px 0 0;
+    padding: 13px;
+
+    border-radius: 12px;
+
+    background: #fff0ef;
+    color: #9b251d;
+
+    font-weight: 750;
+}
+
+.recoveryButton,
+.goHomeButton,
+.backButton {
+    width: 100%;
+    min-height: 66px;
+
+    padding: 12px 20px;
+
+    border-radius: 18px;
+
+    font-size:
+        clamp(1.1rem, 5vw, 1.5rem);
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.recoveryButton {
+    margin-top: 20px;
+
+    border: none;
+
+    background: #5d9fd6;
+    color: #ffffff;
+}
+
+.recoveryButton:disabled {
+    opacity: 0.65;
+}
+
+.recoveryComplete {
+    text-align: center;
+}
+
+.completeIcon {
+    font-size:
+        clamp(3.5rem, 14vw, 6rem);
+}
+
+.recoveryComplete h2 {
+    margin: 8px 0 12px;
+
+    color: #3478ad;
+
+    font-size:
+        clamp(1.7rem, 6vw, 2.6rem);
+}
+
+.recoveryComplete p {
+    line-height: 1.7;
+}
+
+.goHomeButton {
+    margin-top: 16px;
+
+    border: none;
+
+    background: #5d9fd6;
+    color: #ffffff;
+}
+
+.backButton {
+    margin-top: 18px;
+
+    border: 4px solid #5d9fd6;
+
+    background: #ffffff;
+    color: #3478ad;
+}
+
+button:focus-visible {
+    outline: 5px solid #2457d6;
+    outline-offset: 4px;
+}

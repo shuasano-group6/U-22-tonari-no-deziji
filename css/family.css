@@ -1,0 +1,721 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+
+    padding:
+        max(20px, env(safe-area-inset-top))
+        max(14px, env(safe-area-inset-right))
+        max(28px, env(safe-area-inset-bottom))
+        max(14px, env(safe-area-inset-left));
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff1d8 0%,
+            #ffe0ad 100%
+        );
+
+    color: #4d3826;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
+}
+
+button {
+    font-family: inherit;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.family-page {
+    width: min(94vw, 960px);
+
+    margin: 0 auto;
+}
+
+.family-header {
+    margin-bottom: 24px;
+
+    text-align: center;
+}
+
+.family-eyebrow,
+.panel-kicker,
+.card-label,
+.message-label {
+    margin: 0 0 6px;
+
+    color: #9a65bb;
+
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+}
+
+.family-header h1 {
+    margin: 0;
+
+    color: #765132;
+
+    font-size:
+        clamp(2rem, 7vw, 3.8rem);
+}
+
+.family-greeting {
+    margin: 10px 0 0;
+
+    color: #685445;
+
+    font-size:
+        clamp(1.05rem, 4vw, 1.4rem);
+
+    font-weight: 700;
+    line-height: 1.6;
+}
+
+.loading-card,
+.family-panel,
+.family-message-card {
+    padding:
+        clamp(18px, 4vw, 28px);
+
+    border-radius: 24px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 8px 24px
+        rgba(82, 53, 27, 0.12);
+}
+
+.loading-card {
+    border: 4px solid #f6b52c;
+
+    text-align: center;
+
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+}
+
+.hero-card {
+    display: flex;
+    align-items: center;
+
+    min-height: 170px;
+
+    padding:
+        clamp(18px, 4vw, 28px);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 8px 22px
+        rgba(82, 53, 27, 0.12);
+}
+
+.weekly-card {
+    background:
+        linear-gradient(
+            135deg,
+            #fff8df,
+            #ffe9a8
+        );
+}
+
+.growth-card {
+    background:
+        linear-gradient(
+            135deg,
+            #f1e9ff,
+            #ddc9ff
+        );
+}
+
+.card-icon {
+    margin-right: 18px;
+
+    font-size:
+        clamp(3rem, 10vw, 5rem);
+}
+
+.hero-card strong {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #77502f;
+
+    font-size:
+        clamp(1.8rem, 6vw, 3rem);
+}
+
+.hero-card p:last-child {
+    margin: 0;
+
+    line-height: 1.5;
+}
+
+.family-panel {
+    margin-top: 22px;
+
+    border:
+        3px solid #ead5b3;
+}
+
+.panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+.panel-heading h2 {
+    margin: 0;
+
+    color: #765132;
+
+    font-size:
+        clamp(1.5rem, 5vw, 2.2rem);
+}
+
+.scenario-summary {
+    display: grid;
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
+}
+
+.scenario-card {
+    padding: 18px;
+
+    border-radius: 18px;
+
+    background: #fff9ee;
+
+    text-align: center;
+}
+
+.scenario-card h3 {
+    margin: 0 0 14px;
+
+    color: #8c6038;
+
+    font-size: 1.35rem;
+}
+
+.scenario-score {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #d98700;
+
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.scenario-card p {
+    margin: 5px 0;
+
+    color: #6d5948;
+}
+
+.skill-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 16px;
+}
+
+.skill-card {
+    padding: 20px;
+
+    border-radius: 18px;
+}
+
+.strong-skill {
+    background: #edf9ef;
+
+    border-left:
+        8px solid #63ac6c;
+}
+
+.weak-skill {
+    background: #fff5df;
+
+    border-left:
+        8px solid #e5a12d;
+}
+
+.skill-card span {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-weight: 800;
+}
+
+.skill-card strong {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 1.25rem;
+}
+
+.skill-card p {
+    margin: 0;
+
+    color: #6c5a4c;
+}
+
+.achievement-list {
+    display: grid;
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 14px;
+}
+
+.achievement-card {
+    display: flex;
+    align-items: center;
+
+    padding: 16px;
+
+    border-radius: 18px;
+
+    background: #fff8e8;
+}
+
+.achievement-icon {
+    margin-right: 14px;
+
+    font-size: 2.4rem;
+}
+
+.achievement-card strong {
+    display: block;
+
+    margin-bottom: 4px;
+}
+
+.achievement-card p {
+    margin: 0;
+
+    color: #6c5b4c;
+
+    line-height: 1.5;
+}
+
+.empty-message {
+    margin: 0;
+
+    padding: 18px;
+
+    border-radius: 15px;
+
+    background: #f7f4ef;
+
+    color: #75685d;
+
+    text-align: center;
+}
+
+.timeline-list {
+    display: grid;
+
+    gap: 13px;
+}
+
+.timeline-item {
+    padding: 15px 17px;
+
+    border-radius: 17px;
+}
+
+.timeline-ai {
+    background: #fff4d7;
+
+    border-left:
+        7px solid #f6b52c;
+}
+
+.timeline-user {
+    background: #edf8ff;
+
+    border-left:
+        7px solid #62a9df;
+}
+
+.timeline-family {
+    background: #f4edff;
+
+    border-left:
+        7px solid #9c78cf;
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 7px;
+}
+
+.timeline-header time {
+    color: #76685d;
+
+    font-size: 0.85rem;
+}
+
+.timeline-meta {
+    margin: 0 0 7px;
+
+    color: #8a6b50;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.timeline-item > p:last-child {
+    margin: 0;
+
+    line-height: 1.7;
+
+    white-space: pre-wrap;
+}
+
+.family-message-card {
+    display: flex;
+    align-items: center;
+
+    margin-top: 22px;
+
+    border:
+        4px solid #9c78cf;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffdf8,
+            #f5edff
+        );
+}
+
+.message-owl {
+    margin-right: 18px;
+
+    font-size:
+        clamp(3rem, 10vw, 5rem);
+}
+
+.family-message-card p:last-child {
+    margin: 0;
+
+    font-size:
+        clamp(1.05rem, 4vw, 1.3rem);
+
+    font-weight: 700;
+    line-height: 1.7;
+}
+
+.family-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 14px;
+
+    margin-top: 26px;
+}
+
+.reflection-button,
+.home-button {
+    min-width:
+        min(100%, 260px);
+
+    min-height: 64px;
+
+    padding: 12px 20px;
+
+    border-radius: 18px;
+
+    font-size: 1.1rem;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.reflection-button {
+    border:
+        3px solid #9c78cf;
+
+    background: #ffffff;
+    color: #7652a6;
+}
+
+.home-button {
+    border: none;
+
+    background: #b48455;
+    color: #ffffff;
+}
+
+button:focus-visible {
+    outline:
+        5px solid #2457d6;
+
+    outline-offset: 4px;
+}
+
+@media (max-width: 720px) {
+    .hero-grid,
+    .skill-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .scenario-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .achievement-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .hero-card,
+    .family-message-card {
+        align-items: flex-start;
+    }
+
+    .card-icon,
+    .message-owl {
+        margin-right: 12px;
+    }
+
+    .timeline-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+
+.family-login-card {
+    width: min(100%, 620px);
+
+    margin: 0 auto;
+    padding: clamp(20px, 5vw, 34px);
+
+    border: 4px solid #9c78cf;
+    border-radius: 26px;
+
+    background: #ffffff;
+
+    text-align: center;
+
+    box-shadow:
+        0 8px 24px
+        rgba(82, 53, 27, 0.14);
+}
+
+.family-login-card h2 {
+    margin: 0 0 14px;
+
+    color: #7652a6;
+
+    font-size:
+        clamp(1.6rem, 6vw, 2.5rem);
+}
+
+.family-login-card p {
+    line-height: 1.7;
+}
+
+.family-login-card label {
+    display: block;
+
+    margin: 20px 0 8px;
+
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.family-login-card input {
+    width: min(100%, 360px);
+    min-height: 72px;
+
+    padding: 12px;
+
+    border: 4px solid #9c78cf;
+    border-radius: 18px;
+
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+
+    font-size:
+        clamp(1.5rem, 8vw, 2.5rem);
+    font-weight: 800;
+}
+
+.family-login-button {
+    display: block;
+
+    width: min(100%, 360px);
+    min-height: 66px;
+
+    margin: 18px auto 0;
+
+    border: none;
+    border-radius: 18px;
+
+    background: #9c78cf;
+    color: #ffffff;
+
+    font-size: 1.2rem;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.connected-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 18px;
+    padding: 12px 16px;
+
+    border-radius: 16px;
+
+    background: #f4edff;
+    color: #65408e;
+
+    font-weight: 800;
+}
+
+.connected-bar button {
+    padding: 8px 12px;
+
+    border: 2px solid #9c78cf;
+    border-radius: 12px;
+
+    background: #ffffff;
+    color: #7652a6;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+#familyCommentPanel > p {
+    color: #6d5948;
+
+    font-weight: 700;
+}
+
+#familyCommentForm label {
+    display: block;
+
+    margin-top: 14px;
+
+    font-weight: 800;
+}
+
+#familyCommentForm input,
+#familyCommentForm textarea {
+    width: 100%;
+
+    margin-top: 7px;
+    padding: 12px;
+
+    border: 3px solid #c8a5df;
+    border-radius: 14px;
+
+    font: inherit;
+}
+
+#familyCommentForm textarea {
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+.family-comment-button {
+    width: min(100%, 340px);
+    min-height: 60px;
+
+    margin-top: 14px;
+
+    border: none;
+    border-radius: 17px;
+
+    background: #9c78cf;
+    color: #ffffff;
+
+    font-size: 1.1rem;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.form-message {
+    margin: 12px 0 0;
+    padding: 11px;
+
+    border-radius: 12px;
+
+    background: #fff0ef;
+    color: #9b251d;
+
+    font-weight: 700;
+}
+
+.form-message.success {
+    background: #edf9ee;
+    color: #21742b;
+}
+
+@media (max-width: 520px) {
+    .connected-bar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

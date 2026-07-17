@@ -54,6 +54,7 @@ function goHome() {
     stopVoiceRecognition();
     resetVoiceUI();
     showScreen('homeScreen');
+    loadHomeDashboard();
 }
 
 
@@ -65,6 +66,14 @@ function backToScenario() {
 
 function openReflection() {
     location.href = 'reflection.html';
+}
+
+function openSettings() {
+    location.href = 'settings.html';
+}
+
+function openFamilyNote() {
+    location.href = 'family.html';
 }
 
 
@@ -580,3 +589,151 @@ function stopVoiceRecognition() {
     recognition = null;
     setListeningState(false);
 }
+
+// ==============================
+// ホーム・成長お知らせバー
+// ==============================
+
+function setDashboardText(id, value) {
+    const element = getElement(id);
+
+    if (element) {
+        element.textContent = value;
+    }
+}
+
+
+function buildDashboardMessage(report) {
+    const userName =
+        report.user?.display_name
+        && report.user.display_name !== 'ゲスト'
+            ? `${report.user.display_name}さん、`
+            : '';
+
+    const weekCount =
+        report.week?.completed_count || 0;
+
+    const growth =
+        report.growth || {};
+
+    const difference =
+        growth.score_difference;
+
+    const phone =
+        (report.scenarios || []).find(
+            scenario =>
+                scenario.scenario_id === 1
+        );
+
+    if (weekCount === 0) {
+        return (
+            `${userName}今週はまだ練習していません。`
+            + '「やってみる」から始めましょう！'
+        );
+    }
+
+    if (
+        difference !== null
+        && difference !== undefined
+        && difference > 0
+    ) {
+        return (
+            `${userName}電話のスコアが`
+            + `前回より${difference}点アップしました！ 🎉`
+        );
+    }
+
+    if (
+        phone
+        && phone.latest_score !== null
+        && phone.latest_score !== undefined
+    ) {
+        return (
+            `${userName}今週は${weekCount}回練習。`
+            + `電話の最新スコアは${phone.latest_score}点です！`
+        );
+    }
+
+    return (
+        `${userName}今週は${weekCount}回練習しました。`
+        + '少しずつ上達しています！'
+    );
+}
+
+
+function restartDashboardNoticeAnimation() {
+    const message =
+        getElement('dashboardMessage');
+
+    if (!message) {
+        return;
+    }
+
+    message.classList.remove(
+        'dashboardNoticeTextRunning'
+    );
+
+    void message.offsetWidth;
+
+    message.classList.add(
+        'dashboardNoticeTextRunning'
+    );
+}
+
+
+async function loadHomeDashboard() {
+    const dashboard =
+        getElement('homeDashboard');
+
+    if (!dashboard) {
+        return;
+    }
+
+    try {
+        if (
+            typeof getFamilyReport
+            !== 'function'
+        ) {
+            throw new Error(
+                '成長記録の取得機能が読み込まれていません'
+            );
+        }
+
+        const report =
+            await getFamilyReport();
+
+        setDashboardText(
+            'dashboardMessage',
+            buildDashboardMessage(report)
+        );
+
+        dashboard.classList.remove(
+            'dashboardError'
+        );
+
+        restartDashboardNoticeAnimation();
+
+    } catch (error) {
+        console.error(
+            'ホームお知らせ取得エラー:',
+            error
+        );
+
+        setDashboardText(
+            'dashboardMessage',
+            '記録を取得できませんでした。バックエンドをご確認ください。'
+        );
+
+        dashboard.classList.add(
+            'dashboardError'
+        );
+
+        restartDashboardNoticeAnimation();
+    }
+}
+
+
+document.addEventListener(
+    'DOMContentLoaded',
+    loadHomeDashboard
+);
